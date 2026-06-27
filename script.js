@@ -128,3 +128,6 @@ technicianSelect.addEventListener("change", function () {
         otherTechnician.value = "";
     }
 });
+registration.addEventListener('input', () => {
+  registration.value = registration.value.toUpperCase();
+});
