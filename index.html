@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Workshop AI v2.5</title>
+  <title>Workshop AI v2.6</title>
   <link rel="stylesheet" href="style.css" />
 </head>
 <body>
@@ -88,7 +88,7 @@
       <h2>Load New Job</h2>
       <div class="grid">
         <label>Vehicle Registration / Reg Number *<input id="reg" placeholder="AB19 XYZ"></label>
-        <label>Booking Date<input id="bookingDate" type="date"></label>
+        <label>Booking Date / Future Booking<input id="bookingDate" type="date"></label>
         <label>Customer Name<input id="customer" placeholder="Customer name"></label>
         <label>Telephone<input id="phone" placeholder="Telephone"></label>
         <label>Make<input id="make" placeholder="Ford / Audi / VW"></label>
@@ -146,6 +146,24 @@
       <button id="copyServiceMorningBriefing" class="secondary">Copy Morning Briefing</button>
       <pre id="serviceManagerEndOfDayBriefing">No end-of-day briefing yet.</pre>
       <button id="copyServiceEndBriefing" class="secondary">Copy End of Day Briefing</button>
+    </div>
+
+    <div class="card">
+      <h2>Future Bookings</h2>
+      <p class="muted">Jobs can be loaded for days ahead. Select a date below to view or plan upcoming work.</p>
+      <div class="grid">
+        <label>View Booking Date
+          <input id="futureBookingDate" type="date">
+        </label>
+        <label>Quick View
+          <select id="futureQuickView">
+            <option value="selected">Selected date</option>
+            <option value="tomorrow">Tomorrow</option>
+            <option value="7days">Next 7 days</option>
+          </select>
+        </label>
+      </div>
+      <div id="futureBookingsList" class="job-list"></div>
     </div>
 
     <div class="card">
@@ -283,6 +301,11 @@
     <div class="card">
       <h2>Today's Workshop Summary</h2>
       <div id="plannerSummary" class="stats"></div>
+    </div>
+
+    <div class="card">
+      <h2>Upcoming Workload</h2>
+      <div id="upcomingWorkload" class="job-list"></div>
     </div>
 
     <div class="card">

@@ -93,3 +93,5 @@
 .board-job:active{cursor:grabbing}
 .parts-status-pill{display:inline-block;border-radius:999px;padding:4px 10px;font-weight:bold;background:#e7edf4;margin-top:6px}
 .parts-request-card{border-left-color:#6f42c1}
+
+.future-day-card{border-left-color:#20c997}
