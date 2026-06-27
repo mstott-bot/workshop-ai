@@ -4,3 +4,80 @@
 
 .report-preview{white-space:pre-wrap;background:#f8fafc;border:1px solid #d8e0e8;border-radius:10px;padding:10px;margin-top:8px;max-height:240px;overflow:auto}
 .badge-new{display:inline-block;background:#dc3545;color:white;border-radius:999px;padding:4px 9px;font-size:12px;font-weight:bold;margin-left:6px}
+
+/* Workshop AI branding */
+.app-header{
+  background:linear-gradient(135deg,#07111d,#0b2340);
+  color:white;
+  padding:18px;
+  border-bottom:1px solid #263747;
+}
+.brand-lockup{
+  display:flex;
+  align-items:center;
+  gap:14px;
+}
+.logo-mark{
+  width:68px;
+  height:68px;
+  border-radius:18px;
+  background:linear-gradient(135deg,#0b6efd,#073b85);
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  position:relative;
+  box-shadow:0 10px 24px rgba(11,110,253,.35);
+  flex-shrink:0;
+}
+.logo-mark .gear{
+  font-size:44px;
+  line-height:1;
+  color:white;
+}
+.logo-mark .wrench{
+  position:absolute;
+  font-size:24px;
+  right:9px;
+  bottom:8px;
+  transform:rotate(-18deg);
+}
+.app-header h1{
+  letter-spacing:.5px;
+  margin:0;
+  font-size:34px;
+}
+.app-header h1 strong{
+  color:#2d8cff;
+}
+.tagline{
+  text-transform:uppercase;
+  letter-spacing:2.5px;
+  color:#d4dde8!important;
+  font-size:14px;
+  margin-top:2px!important;
+}
+.app-footer{
+  color:#c9d3dd;
+  text-align:center;
+  padding:18px;
+  font-size:13px;
+  letter-spacing:1.5px;
+}
+.app-footer strong{
+  color:#2d8cff;
+}
+.hero h2:before{
+  content:"WORKSHOP AI";
+  display:block;
+  color:#0b6efd;
+  letter-spacing:2px;
+  font-size:13px;
+  margin-bottom:6px;
+}
+@media(max-width:700px){
+  .logo-mark{width:56px;height:56px;border-radius:14px}
+  .logo-mark .gear{font-size:36px}
+  .logo-mark .wrench{font-size:20px}
+  .app-header h1{font-size:25px}
+  .tagline{font-size:11px;letter-spacing:1.6px}
+}
