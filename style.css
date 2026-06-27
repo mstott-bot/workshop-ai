@@ -29,3 +29,37 @@
 .tech-actions button{width:auto;margin-left:6px}
 @media(max-width:1100px){.tabs{grid-template-columns:repeat(3,1fr)}}
 @media(max-width:700px){.app-header{align-items:flex-start;flex-direction:column}.tabs{grid-template-columns:1fr}.logo-mark{width:56px;height:56px}.logo-mark .gear{font-size:36px}.logo-mark .wrench{font-size:20px}.app-header h1{font-size:25px}.tagline{font-size:11px;letter-spacing:1.6px}}
+
+.job-info-grid{
+  display:grid;
+  grid-template-columns:repeat(3,1fr);
+  gap:10px;
+  margin:12px 0;
+}
+.job-info-grid div{
+  background:#f0f4f8;
+  border-radius:12px;
+  padding:10px;
+}
+.job-info-grid strong{
+  display:block;
+  font-size:12px;
+  color:#5f6b76;
+  text-transform:uppercase;
+  letter-spacing:.7px;
+}
+.job-info-grid span{
+  display:block;
+  font-size:18px;
+  font-weight:bold;
+  margin-top:4px;
+}
+.special-instructions{
+  background:#fff3cd;
+  border:1px solid #ffe69c;
+  border-radius:12px;
+  padding:12px;
+  margin:10px 0;
+}
+.special-instructions p{margin:6px 0 0}
+@media(max-width:700px){.job-info-grid{grid-template-columns:1fr}}

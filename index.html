@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Workshop AI v2.0</title>
+  <title>Workshop AI v2.1</title>
   <link rel="stylesheet" href="style.css" />
 </head>
 <body>
@@ -119,6 +119,10 @@
         <textarea id="workRequired" placeholder="Example: Customer reports vibration under braking. Diagnose and advise."></textarea>
       </label>
 
+      <label>Special Instructions — Service Manager Only
+        <textarea id="specialInstructions" placeholder="Example: Customer waiting, do not wash, locking wheel nut in boot, phone before repairs."></textarea>
+      </label>
+
       <button id="assignJob" class="primary">Assign Job</button>
     </div>
 
@@ -150,6 +154,8 @@
     <div class="card">
       <h2 id="activeTitle">Active Job</h2>
       <p id="activeDetails" class="muted"></p>
+      <div id="activeJobInfo" class="job-info-grid"></div>
+      <div id="activeSpecialInstructions" class="special-instructions hidden"></div>
       <p class="hours-warning">Labour hours are set by the service manager only. Technician clocks start and finish time.</p>
 
       <div class="timer-box">
@@ -184,7 +190,7 @@
 
     <div class="card">
       <h2>Technician Report Sections</h2>
-      <div class="voice-section"><label>Customer Complaint<textarea id="complaint"></textarea></label><button class="voiceBtn secondary" data-target="complaint">🎤 Voice Complaint</button></div>
+      <div class="voice-section"><label>Job Description<textarea id="complaint"></textarea></label><button class="voiceBtn secondary" data-target="complaint">🎤 Voice Job Description</button></div>
       <div class="voice-section"><label>Findings<textarea id="findings"></textarea></label><button class="voiceBtn secondary" data-target="findings">🎤 Voice Findings</button></div>
       <div class="voice-section"><label>Repair Carried Out<textarea id="repair"></textarea></label><button class="voiceBtn secondary" data-target="repair">🎤 Voice Repair</button></div>
       <div class="voice-section"><label>Parts Used / Required<textarea id="parts"></textarea></label><button class="voiceBtn secondary" data-target="parts">🎤 Voice Parts</button></div>
