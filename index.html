@@ -3,13 +3,13 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>PCA Workshop AI v1.0</title>
+  <title>PCA Workshop AI v1.1</title>
   <link rel="stylesheet" href="style.css" />
 </head>
 <body>
 <header class="app-header">
   <h1>PCA Workshop AI</h1>
-  <p>Release 1.0 — Technician Clock Off + Downtime Reports</p>
+  <p>Release 1.1 — Service Manager Completed Reports Inbox</p>
   <p id="todayDate"></p>
 </header>
 
@@ -116,6 +116,12 @@
     <div class="card">
       <h2>Service Manager Job Board</h2>
       <div id="managerJobs" class="job-list"></div>
+    </div>
+
+    <div class="card">
+      <h2>Completed Technician Write-Ups</h2>
+      <p class="muted">When a technician finishes and saves a job report, it automatically appears here for the Service Manager.</p>
+      <div id="completedReportsInbox" class="job-list"></div>
     </div>
   </section>
 
