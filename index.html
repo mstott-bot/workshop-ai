@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Workshop AI v2.6</title>
+  <title>Workshop AI v2.7</title>
   <link rel="stylesheet" href="style.css" />
 </head>
 <body>
@@ -29,6 +29,7 @@
     <button class="tab" data-screen="techScreen">Technician</button>
     <button class="tab" data-screen="reportsScreen">Reports</button>
     <button class="tab" data-screen="plannerScreen">Daily Planner</button>
+    <button class="tab" data-screen="partsScreen">Parts</button>
     <button class="tab" data-screen="reportsInterfaceScreen">Reports Interface</button>
     <button class="tab" data-screen="techniciansScreen">Technicians</button>
     <button class="tab" data-screen="targetsScreen">Targets</button>
@@ -246,11 +247,27 @@
     </div>
 
     <div class="card">
-      <h2>Request Parts</h2>
-      <label>Parts Required
-        <textarea id="partsRequestText" placeholder="Example: Front brake discs, front brake pads, wear sensor."></textarea>
-      </label>
-      <button id="submitPartsRequest" class="primary">Send Parts Request to Service Manager</button>
+      <h2>Parts</h2>
+      <div class="grid">
+        <label>Part Description
+          <input id="partDescription" placeholder="Example: Front brake discs">
+        </label>
+        <label>Quantity
+          <input id="partQty" type="number" min="1" step="1" value="1">
+        </label>
+        <label>Priority
+          <select id="partPriority">
+            <option>Urgent</option>
+            <option>Today</option>
+            <option>Tomorrow</option>
+            <option>Routine</option>
+          </select>
+        </label>
+        <label>Supplier / Note
+          <input id="partSupplier" placeholder="Example: TPS / ECP / Dealer">
+        </label>
+      </div>
+      <button id="submitPartsRequest" class="primary">Add Part Request</button>
       <h3>Parts Status</h3>
       <div id="technicianPartsStatus" class="job-list"></div>
     </div>
@@ -321,6 +338,25 @@
     <div class="card">
       <h2>Jobs For Selected Day</h2>
       <div id="plannerJobs" class="job-list"></div>
+    </div>
+  </section>
+
+
+  <section id="partsScreen" class="screen">
+    <div class="card">
+      <h2>Parts Management</h2>
+      <p class="muted">All technician parts requests across the workshop. Service Manager can update status so technicians can see what is happening.</p>
+      <div id="partsManagementStats" class="stats"></div>
+    </div>
+
+    <div class="card">
+      <h2>Outstanding Parts Queue</h2>
+      <div id="partsManagementQueue" class="job-list"></div>
+    </div>
+
+    <div class="card">
+      <h2>Delivered / Completed Parts</h2>
+      <div id="partsDeliveredQueue" class="job-list"></div>
     </div>
   </section>
 
