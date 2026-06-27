@@ -3,37 +3,35 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>PCA Workshop AI v0.4</title>
+  <title>PCA Workshop AI v0.5</title>
   <link rel="stylesheet" href="style.css" />
 </head>
 <body>
   <header class="app-header">
-    <div>
-      <h1>PCA Workshop AI</h1>
-      <p>Workshop Control Centre v0.4</p>
-    </div>
+    <h1>PCA Workshop AI</h1>
+    <p>Technician Workflow v0.5</p>
   </header>
 
   <main class="container">
     <nav class="tabs">
-      <button class="tab-button active" data-tab="manager">Service Manager</button>
-      <button class="tab-button" data-tab="technician">Technician</button>
-      <button class="tab-button" data-tab="dashboard">Dashboard</button>
+      <button class="tab active" data-screen="managerScreen">Service Manager</button>
+      <button class="tab" data-screen="techScreen">Technician</button>
+      <button class="tab" data-screen="dashboardScreen">Dashboard</button>
     </nav>
 
-    <section id="manager" class="tab-panel active">
+    <section id="managerScreen" class="screen active">
       <div class="card">
-        <h2>New Job</h2>
+        <h2>Load New Job</h2>
 
         <div class="grid">
-          <label>Registration *<input id="jobReg" placeholder="AB19 XYZ" /></label>
-          <label>Customer Name<input id="customerName" placeholder="Customer name" /></label>
-          <label>Telephone<input id="customerPhone" placeholder="Telephone number" /></label>
-          <label>Vehicle Make<input id="vehicleMake" placeholder="Ford / Audi / VW" /></label>
-          <label>Vehicle Model<input id="vehicleModel" placeholder="Fiesta / A4 / Golf" /></label>
-          <label>Mileage<input id="mileage" type="number" placeholder="Mileage" /></label>
+          <label>Registration *<input id="reg" placeholder="AB19 XYZ"></label>
+          <label>Customer Name<input id="customer" placeholder="Customer name"></label>
+          <label>Telephone<input id="phone" placeholder="Telephone"></label>
+          <label>Make<input id="make" placeholder="Ford / Audi / VW"></label>
+          <label>Model<input id="model" placeholder="Fiesta / A4 / Golf"></label>
+          <label>Mileage<input id="mileage" type="number" placeholder="Mileage"></label>
 
-          <label>Job Type *
+          <label>Job Type
             <select id="jobType">
               <option>Retail</option>
               <option>Warranty</option>
@@ -41,8 +39,8 @@
             </select>
           </label>
 
-          <label>Assigned Technician *
-            <select id="assignedTech">
+          <label>Technician
+            <select id="technician">
               <option>Jake</option>
               <option>Gordon</option>
               <option>James</option>
@@ -52,8 +50,7 @@
             </select>
           </label>
 
-          <label id="otherTechWrap" class="hidden">Other Technician<input id="otherTechName" placeholder="Technician name" /></label>
-          <label>Labour Hours Allowed *<input id="labourHours" type="number" min="0" step="0.25" placeholder="2.5" /></label>
+          <label>Labour Hours Allowed *<input id="hours" type="number" step="0.25" min="0" placeholder="2.5"></label>
 
           <label>Priority
             <select id="priority">
@@ -64,7 +61,7 @@
           </label>
 
           <label>MOT Add-on
-            <select id="motOption">
+            <select id="mot">
               <option>None</option>
               <option>Full MOT</option>
               <option>Retest</option>
@@ -72,8 +69,8 @@
             </select>
           </label>
 
-          <label id="authWrap">Customer Authorisation
-            <select id="authorisation">
+          <label id="authBox">Retail Authorisation
+            <select id="auth">
               <option>Awaiting Customer Approval</option>
               <option>Approved</option>
               <option>Declined</option>
@@ -85,18 +82,18 @@
           <textarea id="workRequired" placeholder="Example: Customer reports vibration under braking. Diagnose and advise."></textarea>
         </label>
 
-        <button id="addJob" class="primary">Assign Job</button>
+        <button id="assignJob" class="primary">Assign Job</button>
       </div>
 
       <div class="card">
-        <h2>Today's Jobs</h2>
-        <div id="managerJobs" class="job-list empty">No jobs loaded yet.</div>
+        <h2>All Jobs</h2>
+        <div id="managerJobs" class="job-list"></div>
       </div>
     </section>
 
-    <section id="technician" class="tab-panel">
+    <section id="techScreen" class="screen">
       <div class="card">
-        <h2>Technician Jobs</h2>
+        <h2>My Jobs</h2>
         <label>Select Technician
           <select id="techFilter">
             <option>Jake</option>
@@ -108,15 +105,20 @@
             <option>All</option>
           </select>
         </label>
-        <div id="techJobs" class="job-list empty">No jobs assigned.</div>
+        <div id="techJobs" class="job-list"></div>
       </div>
+    </section>
 
-      <div id="jobWorkArea" class="card hidden">
-        <h2 id="activeJobTitle">Job</h2>
-        <p id="activeJobMeta" class="muted"></p>
+    <section id="activeJobScreen" class="screen">
+      <button id="backToJobs" class="secondary">← Back to Jobs</button>
+
+      <div class="card">
+        <h2 id="activeTitle">Active Job</h2>
+        <p id="activeDetails" class="muted"></p>
+        <p class="hours-warning">Labour hours are set by the service manager only.</p>
 
         <label>Job Status
-          <select id="activeStatus">
+          <select id="status">
             <option>🔵 Waiting to Start</option>
             <option>🟡 Diagnosis</option>
             <option>🟠 Awaiting Parts</option>
@@ -125,34 +127,64 @@
             <option>✅ Ready for Collection</option>
           </select>
         </label>
+      </div>
 
-        <label>Technician Voice Note / Findings
-          <textarea id="techNote" placeholder="Speak or type: complaint, findings, repair completed, parts used, advisories."></textarea>
-        </label>
+      <div class="card">
+        <h2>Technician Report Sections</h2>
 
-        <div class="button-row">
-          <button id="startVoice" class="secondary">🎤 Start Voice</button>
-          <button id="stopVoice" class="secondary">⏹ Stop</button>
+        <div class="voice-section">
+          <label>Customer Complaint<textarea id="complaint" placeholder="Customer reports..."></textarea></label>
+          <button class="voiceBtn secondary" data-target="complaint">🎤 Voice Complaint</button>
         </div>
 
-        <button id="saveJobUpdate" class="primary">Save Job Update</button>
+        <div class="voice-section">
+          <label>Findings<textarea id="findings" placeholder="Found..."></textarea></label>
+          <button class="voiceBtn secondary" data-target="findings">🎤 Voice Findings</button>
+        </div>
+
+        <div class="voice-section">
+          <label>Repair Carried Out<textarea id="repair" placeholder="Replaced / repaired..."></textarea></label>
+          <button class="voiceBtn secondary" data-target="repair">🎤 Voice Repair</button>
+        </div>
+
+        <div class="voice-section">
+          <label>Parts Used / Required<textarea id="parts" placeholder="Parts used or required..."></textarea></label>
+          <button class="voiceBtn secondary" data-target="parts">🎤 Voice Parts</button>
+        </div>
+
+        <div class="voice-section">
+          <label>Advisories<textarea id="advisories" placeholder="Advisories..."></textarea></label>
+          <button class="voiceBtn secondary" data-target="advisories">🎤 Voice Advisories</button>
+        </div>
+
+        <label>Photos
+          <input id="photos" type="file" accept="image/*" multiple>
+        </label>
+
+        <button id="saveActiveJob" class="primary">Save Job & Generate Report</button>
+      </div>
+
+      <div class="card">
+        <h2>Generated Report</h2>
+        <pre id="generatedReport">No report generated yet.</pre>
+        <button id="copyReport" class="secondary">Copy Report</button>
       </div>
     </section>
 
-    <section id="dashboard" class="tab-panel">
+    <section id="dashboardScreen" class="screen">
       <div class="card">
         <h2>Workshop Dashboard</h2>
-        <div id="stats" class="stats-grid"></div>
+        <div id="stats" class="stats"></div>
       </div>
 
       <div class="card">
         <h2>Technician Workload</h2>
-        <div id="workload" class="job-list empty">No workload yet.</div>
+        <div id="workload"></div>
       </div>
 
       <div class="card">
         <h2>Workshop Board</h2>
-        <div id="dashboardJobs" class="job-list empty">No jobs loaded yet.</div>
+        <div id="dashboardJobs" class="job-list"></div>
       </div>
     </section>
   </main>
