@@ -18,9 +18,23 @@
       <label>Registration</label>
       <input id="registration" placeholder="Example: AB19 XYZ" />
 
-      <label>Technician</label>
-      <input id="technician" placeholder="Example: Jake" />
+      <label for="technician">Technician</label>
+<select id="technician">
+  <option value="">Select technician</option>
+  <option>Jake</option>
+  <option>Gordon</option>
+  <option>James</option>
+  <option>Jimmy</option>
+  <option>Ross</option>
+  <option>Other</option>
+</select>
 
+<input 
+  id="otherTechnician" 
+  type="text" 
+  placeholder="Enter technician name" 
+  style="display:none; margin-top:10px;"
+>
       <label>Job Type</label>
       <select id="jobType">
         <option>Retail</option>
