@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Workshop AI v2.8</title>
+  <title>Workshop AI v2.7</title>
   <link rel="stylesheet" href="style.css" />
 </head>
 <body>
@@ -24,15 +24,15 @@
 
 <main class="container">
   <nav class="tabs">
-    <button class="tab active" data-screen="commandScreen">🏠 Dashboard</button>
-    <button class="tab" data-screen="managerScreen">📋 Jobs</button>
-    <button class="tab" data-screen="techScreen">👨‍🔧 Technicians</button>
+    <button class="tab active" data-screen="commandScreen">Command Centre</button>
+    <button class="tab" data-screen="managerScreen">Service Manager</button>
+    <button class="tab" data-screen="techScreen">Technician</button>
     <button class="tab" data-screen="reportsScreen">Reports</button>
-    <button class="tab" data-screen="plannerScreen">📅 Planner</button>
-    <button class="tab" data-screen="partsScreen">📦 Parts</button>
-    <button class="tab" data-screen="reportsInterfaceScreen">📊 Reports</button>
-    <button class="tab" data-screen="techniciansScreen">⚙️ Setup</button>
-    <button class="tab" data-screen="targetsScreen">🎯 Targets</button>
+    <button class="tab" data-screen="plannerScreen">Daily Planner</button>
+    <button class="tab" data-screen="partsScreen">Parts</button>
+    <button class="tab" data-screen="reportsInterfaceScreen">Reports Interface</button>
+    <button class="tab" data-screen="techniciansScreen">Technicians</button>
+    <button class="tab" data-screen="targetsScreen">Targets</button>
   </nav>
 
   <section id="commandScreen" class="screen active">
@@ -266,12 +266,6 @@
         <label>Supplier / Note
           <input id="partSupplier" placeholder="Example: TPS / ECP / Dealer">
         </label>
-        <label>ETA Required By
-          <input id="partEta" type="time">
-        </label>
-        <label>Estimated Cost
-          <input id="partCost" type="number" step="0.01" placeholder="0.00">
-        </label>
       </div>
       <button id="submitPartsRequest" class="primary">Add Part Request</button>
       <h3>Parts Status</h3>
@@ -350,23 +344,13 @@
 
   <section id="partsScreen" class="screen">
     <div class="card">
-      <h2>Parts Control Centre</h2>
-      <p class="muted">A dedicated parts dashboard for the Service Manager. Track requests, suppliers, ETA, ordering, delivery and fitting.</p>
+      <h2>Parts Management</h2>
+      <p class="muted">All technician parts requests across the workshop. Service Manager can update status so technicians can see what is happening.</p>
       <div id="partsManagementStats" class="stats"></div>
     </div>
 
     <div class="card">
-      <h2>Requested Parts</h2>
-      <div id="partsRequestedQueue" class="job-list"></div>
-    </div>
-
-    <div class="card">
-      <h2>Ordered Parts</h2>
-      <div id="partsOrderedQueue" class="job-list"></div>
-    </div>
-
-    <div class="card">
-      <h2>Delivered Parts Awaiting Fitting</h2>
+      <h2>Outstanding Parts Queue</h2>
       <div id="partsManagementQueue" class="job-list"></div>
     </div>
 

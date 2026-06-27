@@ -1,6 +1,6 @@
-let jobs=JSON.parse(localStorage.getItem("workshopAIJobsV28")||localStorage.getItem("workshopAIJobsV27")||localStorage.getItem("workshopAIJobsV26")||localStorage.getItem("workshopAIJobsV25")||localStorage.getItem("workshopAIJobsV24")||localStorage.getItem("workshopAIJobsV23")||localStorage.getItem("workshopAIJobsV22")||localStorage.getItem("workshopAIJobsV21")||localStorage.getItem("pcaJobsV11")||localStorage.getItem("pcaJobsV10")||localStorage.getItem("pcaJobsV09")||localStorage.getItem("pcaJobsV08")||localStorage.getItem("pcaJobsV07")||localStorage.getItem("pcaJobsV06")||"[]");let targets=JSON.parse(localStorage.getItem("pcaTargetsV11")||localStorage.getItem("pcaTargetsV10")||localStorage.getItem("pcaTargetsV09")||localStorage.getItem("pcaTargetsV08")||localStorage.getItem("pcaTargetsV07")||localStorage.getItem("pcaTargetsV06")||"{\"availableHours\":0,\"efficiency\":95,\"retailHours\":0,\"internalHours\":0,\"warrantyHours\":0,\"internalCars\":0}");let activeJobId=null;let activeVoiceTarget=null;let plannerSettings=JSON.parse(localStorage.getItem("workshopAIPlannerSettings")||"{\"capacity\":8}");let technicians=JSON.parse(localStorage.getItem("workshopAITechnicians")||'["Jake","Gordon","James","Jimmy","Ross","Other"]');
+let jobs=JSON.parse(localStorage.getItem("workshopAIJobsV27")||localStorage.getItem("workshopAIJobsV26")||localStorage.getItem("workshopAIJobsV25")||localStorage.getItem("workshopAIJobsV24")||localStorage.getItem("workshopAIJobsV23")||localStorage.getItem("workshopAIJobsV22")||localStorage.getItem("workshopAIJobsV21")||localStorage.getItem("pcaJobsV11")||localStorage.getItem("pcaJobsV10")||localStorage.getItem("pcaJobsV09")||localStorage.getItem("pcaJobsV08")||localStorage.getItem("pcaJobsV07")||localStorage.getItem("pcaJobsV06")||"[]");let targets=JSON.parse(localStorage.getItem("pcaTargetsV11")||localStorage.getItem("pcaTargetsV10")||localStorage.getItem("pcaTargetsV09")||localStorage.getItem("pcaTargetsV08")||localStorage.getItem("pcaTargetsV07")||localStorage.getItem("pcaTargetsV06")||"{\"availableHours\":0,\"efficiency\":95,\"retailHours\":0,\"internalHours\":0,\"warrantyHours\":0,\"internalCars\":0}");let activeJobId=null;let activeVoiceTarget=null;let plannerSettings=JSON.parse(localStorage.getItem("workshopAIPlannerSettings")||"{\"capacity\":8}");let technicians=JSON.parse(localStorage.getItem("workshopAITechnicians")||'["Jake","Gordon","James","Jimmy","Ross","Other"]');
 function saveTechnicians(){localStorage.setItem("workshopAITechnicians",JSON.stringify(technicians))}
-function getTechs(){return technicians.length?technicians:["Other"]}function $(id){return document.getElementById(id)}function val(id){return $(id).value.trim()}function save(){localStorage.setItem("workshopAIJobsV28",JSON.stringify(jobs));localStorage.setItem("workshopAIJobsV27",JSON.stringify(jobs));localStorage.setItem("workshopAIJobsV26",JSON.stringify(jobs));localStorage.setItem("workshopAIJobsV25",JSON.stringify(jobs));localStorage.setItem("workshopAIJobsV24",JSON.stringify(jobs));localStorage.setItem("workshopAIJobsV23",JSON.stringify(jobs));localStorage.setItem("workshopAIJobsV22",JSON.stringify(jobs));localStorage.setItem("workshopAIJobsV21",JSON.stringify(jobs));localStorage.setItem("pcaJobsV11",JSON.stringify(jobs));localStorage.setItem("pcaJobsV10",JSON.stringify(jobs));localStorage.setItem("pcaJobsV09",JSON.stringify(jobs));localStorage.setItem("pcaJobsV08",JSON.stringify(jobs));localStorage.setItem("pcaJobsV07",JSON.stringify(jobs));localStorage.setItem("pcaJobsV06",JSON.stringify(jobs))}function saveTargetsStore(){localStorage.setItem("pcaTargetsV11",JSON.stringify(targets));localStorage.setItem("pcaTargetsV10",JSON.stringify(targets));localStorage.setItem("pcaTargetsV09",JSON.stringify(targets));localStorage.setItem("pcaTargetsV08",JSON.stringify(targets));localStorage.setItem("pcaTargetsV07",JSON.stringify(targets));localStorage.setItem("pcaTargetsV06",JSON.stringify(targets))}function todayISO(){return new Date().toISOString().split("T")[0]}function now(){return new Date()}function fmt(dt){return dt?new Date(dt).toLocaleString("en-GB"):"Not set"}function timeOnly(dt){return dt?new Date(dt).toLocaleTimeString("en-GB",{hour:"2-digit",minute:"2-digit"}):""}function hoursBetween(a,b){if(!a||!b)return 0;return Math.max(0,(new Date(b)-new Date(a))/36e5)}function show(screen){document.querySelectorAll(".screen").forEach(s=>s.classList.remove("active"));$(screen).classList.add("active");document.querySelectorAll(".tab").forEach(t=>t.classList.remove("active"));document.querySelector(`[data-screen='${screen}']`)?.classList.add("active");render()}document.querySelectorAll(".tab").forEach(t=>t.addEventListener("click",()=>show(t.dataset.screen)));$("todayDate").textContent=new Date().toLocaleDateString("en-GB",{weekday:"long",day:"numeric",month:"long",year:"numeric"});$("bookingDate").value=todayISO();if($("plannerDate")) $("plannerDate").value=todayISO();if($("futureBookingDate")) $("futureBookingDate").value=todayISO();if($("dailyTechCapacity")) $("dailyTechCapacity").value=plannerSettings.capacity||8;$("reg").addEventListener("input",e=>e.target.value=e.target.value.toUpperCase());$("jobType").addEventListener("change",()=>{$("authBox").style.display=val("jobType")==="Retail"?"block":"none"});function addTimeline(job,title,detail,type="info"){job.timeline=job.timeline||[];job.timeline.push({time:now().toISOString(),title,detail,type})}function ensureTimeline(job){job.timeline=job.timeline||[];job.interruptions=job.interruptions||[];job.activeClockOff=job.activeClockOff||null;if(job.reportReady===undefined)job.reportReady=!!job.report;if(job.reportReviewed===undefined)job.reportReviewed=false;job.partsRequests=job.partsRequests||[];if(!job.timeline.length&&job.createdAt){job.timeline.push({time:job.createdAt,title:"🟢 Job created",detail:`Job ${job.jobNo||""} created and assigned to ${job.technician}.`,type:"created"})}return job.timeline}$("assignJob").addEventListener("click",()=>{const reg=val("reg").toUpperCase();const hours=Number(val("hours"));if(!reg){alert("Please enter registration");return}if(!hours||hours<=0){alert("Please enter labour hours allowed");return}const type=val("jobType");const jobNo=`PCA-${todayISO().replaceAll("-","")}-${String(jobs.length+1).padStart(3,"0")}`;const job={id:Date.now().toString(),jobNo,createdAt:now().toISOString(),bookingDate:val("bookingDate")||todayISO(),completedAt:null,reg,customer:val("customer"),phone:val("phone"),make:val("make"),model:val("model"),mileage:val("mileage"),type,technician:val("technician"),hours,originalHours:hours,hoursHistory:[`Created with ${hours} hrs`],priority:val("priority"),mot:val("mot"),auth:type==="Retail"?val("auth"):"Not required",workRequired:val("workRequired"),specialInstructions:val("specialInstructions"),status:"🔵 Waiting to Start",startedAt:null,finishedAt:null,actualHours:0,complaint:"",findings:"",repair:"",parts:"",advisories:"",photoCount:0,report:"",timeline:[],interruptions:[],activeClockOff:null,reportReady:false,reportReviewed:false,reportSentAt:null,partsRequests:[]};addTimeline(job,"🟢 Job created",`Job ${jobNo} created for ${reg}.`);addTimeline(job,"👨‍🔧 Technician assigned",`${job.technician} allocated ${hours} labour hours.`);jobs.push(job);save();clearForm();render();alert("Job assigned")});function clearForm(){["reg","customer","phone","make","model","mileage","hours","workRequired","specialInstructions"].forEach(id=>$(id).value="");$("bookingDate").value=todayISO();$("jobType").value="Retail";$("technician").value="Jake";$("priority").value="🟢 Routine";$("mot").value="None";$("auth").value="Awaiting Customer Approval";$("authBox").style.display="block"}function efficiency(allowed,actual){return actual>0?(allowed/actual)*100:null}function pct(n){return n===null?"Not clocked":n.toFixed(0)+"%"}function completed(j){return !!j.completedAt || (j.status||"").includes("Ready") || (j.status||"").includes("Complete")}function card(job,open=true,manager=false){ensureTimeline(job);const eff=efficiency(Number(job.hours||0),Number(job.actualHours||0));return `<div class="job-card"><h3>${job.jobNo||""} | ${job.reg} — ${job.technician}</h3><p><strong>${job.make||"Make"} ${job.model||""}</strong></p><p><strong>Customer:</strong> ${job.customer||"Not entered"} ${job.phone?" | "+job.phone:""}</p><p><strong>Type:</strong> ${job.type} | <strong>Allowed:</strong> ${job.hours} hrs | <strong>Actual:</strong> ${(job.actualHours||0).toFixed(2)} hrs | <strong>Efficiency:</strong> ${pct(eff)}</p><p><strong>MOT:</strong> ${job.mot} | <strong>Status:</strong> ${job.status}</p><p><strong>Timeline:</strong> ${job.timeline.length} events</p>${manager?`<button onclick="amendHours('${job.id}')">Amend Hours</button><button onclick="reassignTech('${job.id}')">Reassign Technician</button><button onclick="managerComment('${job.id}')">Manager Comment</button>`:""}<button onclick="showTimelineModal('${job.id}')">Timeline</button>${open?`<button onclick="openJob('${job.id}')">Start / Continue Job</button>`:""}</div>`}
+function getTechs(){return technicians.length?technicians:["Other"]}function $(id){return document.getElementById(id)}function val(id){return $(id).value.trim()}function save(){localStorage.setItem("workshopAIJobsV27",JSON.stringify(jobs));localStorage.setItem("workshopAIJobsV26",JSON.stringify(jobs));localStorage.setItem("workshopAIJobsV25",JSON.stringify(jobs));localStorage.setItem("workshopAIJobsV24",JSON.stringify(jobs));localStorage.setItem("workshopAIJobsV23",JSON.stringify(jobs));localStorage.setItem("workshopAIJobsV22",JSON.stringify(jobs));localStorage.setItem("workshopAIJobsV21",JSON.stringify(jobs));localStorage.setItem("pcaJobsV11",JSON.stringify(jobs));localStorage.setItem("pcaJobsV10",JSON.stringify(jobs));localStorage.setItem("pcaJobsV09",JSON.stringify(jobs));localStorage.setItem("pcaJobsV08",JSON.stringify(jobs));localStorage.setItem("pcaJobsV07",JSON.stringify(jobs));localStorage.setItem("pcaJobsV06",JSON.stringify(jobs))}function saveTargetsStore(){localStorage.setItem("pcaTargetsV11",JSON.stringify(targets));localStorage.setItem("pcaTargetsV10",JSON.stringify(targets));localStorage.setItem("pcaTargetsV09",JSON.stringify(targets));localStorage.setItem("pcaTargetsV08",JSON.stringify(targets));localStorage.setItem("pcaTargetsV07",JSON.stringify(targets));localStorage.setItem("pcaTargetsV06",JSON.stringify(targets))}function todayISO(){return new Date().toISOString().split("T")[0]}function now(){return new Date()}function fmt(dt){return dt?new Date(dt).toLocaleString("en-GB"):"Not set"}function timeOnly(dt){return dt?new Date(dt).toLocaleTimeString("en-GB",{hour:"2-digit",minute:"2-digit"}):""}function hoursBetween(a,b){if(!a||!b)return 0;return Math.max(0,(new Date(b)-new Date(a))/36e5)}function show(screen){document.querySelectorAll(".screen").forEach(s=>s.classList.remove("active"));$(screen).classList.add("active");document.querySelectorAll(".tab").forEach(t=>t.classList.remove("active"));document.querySelector(`[data-screen='${screen}']`)?.classList.add("active");render()}document.querySelectorAll(".tab").forEach(t=>t.addEventListener("click",()=>show(t.dataset.screen)));$("todayDate").textContent=new Date().toLocaleDateString("en-GB",{weekday:"long",day:"numeric",month:"long",year:"numeric"});$("bookingDate").value=todayISO();if($("plannerDate")) $("plannerDate").value=todayISO();if($("futureBookingDate")) $("futureBookingDate").value=todayISO();if($("dailyTechCapacity")) $("dailyTechCapacity").value=plannerSettings.capacity||8;$("reg").addEventListener("input",e=>e.target.value=e.target.value.toUpperCase());$("jobType").addEventListener("change",()=>{$("authBox").style.display=val("jobType")==="Retail"?"block":"none"});function addTimeline(job,title,detail,type="info"){job.timeline=job.timeline||[];job.timeline.push({time:now().toISOString(),title,detail,type})}function ensureTimeline(job){job.timeline=job.timeline||[];job.interruptions=job.interruptions||[];job.activeClockOff=job.activeClockOff||null;if(job.reportReady===undefined)job.reportReady=!!job.report;if(job.reportReviewed===undefined)job.reportReviewed=false;job.partsRequests=job.partsRequests||[];if(!job.timeline.length&&job.createdAt){job.timeline.push({time:job.createdAt,title:"🟢 Job created",detail:`Job ${job.jobNo||""} created and assigned to ${job.technician}.`,type:"created"})}return job.timeline}$("assignJob").addEventListener("click",()=>{const reg=val("reg").toUpperCase();const hours=Number(val("hours"));if(!reg){alert("Please enter registration");return}if(!hours||hours<=0){alert("Please enter labour hours allowed");return}const type=val("jobType");const jobNo=`PCA-${todayISO().replaceAll("-","")}-${String(jobs.length+1).padStart(3,"0")}`;const job={id:Date.now().toString(),jobNo,createdAt:now().toISOString(),bookingDate:val("bookingDate")||todayISO(),completedAt:null,reg,customer:val("customer"),phone:val("phone"),make:val("make"),model:val("model"),mileage:val("mileage"),type,technician:val("technician"),hours,originalHours:hours,hoursHistory:[`Created with ${hours} hrs`],priority:val("priority"),mot:val("mot"),auth:type==="Retail"?val("auth"):"Not required",workRequired:val("workRequired"),specialInstructions:val("specialInstructions"),status:"🔵 Waiting to Start",startedAt:null,finishedAt:null,actualHours:0,complaint:"",findings:"",repair:"",parts:"",advisories:"",photoCount:0,report:"",timeline:[],interruptions:[],activeClockOff:null,reportReady:false,reportReviewed:false,reportSentAt:null,partsRequests:[]};addTimeline(job,"🟢 Job created",`Job ${jobNo} created for ${reg}.`);addTimeline(job,"👨‍🔧 Technician assigned",`${job.technician} allocated ${hours} labour hours.`);jobs.push(job);save();clearForm();render();alert("Job assigned")});function clearForm(){["reg","customer","phone","make","model","mileage","hours","workRequired","specialInstructions"].forEach(id=>$(id).value="");$("bookingDate").value=todayISO();$("jobType").value="Retail";$("technician").value="Jake";$("priority").value="🟢 Routine";$("mot").value="None";$("auth").value="Awaiting Customer Approval";$("authBox").style.display="block"}function efficiency(allowed,actual){return actual>0?(allowed/actual)*100:null}function pct(n){return n===null?"Not clocked":n.toFixed(0)+"%"}function completed(j){return !!j.completedAt || (j.status||"").includes("Ready") || (j.status||"").includes("Complete")}function card(job,open=true,manager=false){ensureTimeline(job);const eff=efficiency(Number(job.hours||0),Number(job.actualHours||0));return `<div class="job-card"><h3>${job.jobNo||""} | ${job.reg} — ${job.technician}</h3><p><strong>${job.make||"Make"} ${job.model||""}</strong></p><p><strong>Customer:</strong> ${job.customer||"Not entered"} ${job.phone?" | "+job.phone:""}</p><p><strong>Type:</strong> ${job.type} | <strong>Allowed:</strong> ${job.hours} hrs | <strong>Actual:</strong> ${(job.actualHours||0).toFixed(2)} hrs | <strong>Efficiency:</strong> ${pct(eff)}</p><p><strong>MOT:</strong> ${job.mot} | <strong>Status:</strong> ${job.status}</p><p><strong>Timeline:</strong> ${job.timeline.length} events</p>${manager?`<button onclick="amendHours('${job.id}')">Amend Hours</button><button onclick="reassignTech('${job.id}')">Reassign Technician</button><button onclick="managerComment('${job.id}')">Manager Comment</button>`:""}<button onclick="showTimelineModal('${job.id}')">Timeline</button>${open?`<button onclick="openJob('${job.id}')">Start / Continue Job</button>`:""}</div>`}
 function populateTechnicianSelects(){
   const techSelect=$("technician");
   const filterSelect=$("techFilter");
@@ -304,8 +304,6 @@ function submitPartsRequest(){
   const qty=Number(val("partQty"))||1;
   const priority=val("partPriority")||"Today";
   const supplier=val("partSupplier")||"";
-  const eta=val("partEta")||"";
-  const cost=Number(val("partCost"))||0;
   j.partsRequests=j.partsRequests||[];
   j.partsRequests.push({
     id:Date.now().toString(),
@@ -313,10 +311,6 @@ function submitPartsRequest(){
     qty,
     priority,
     supplier,
-    eta,
-    cost,
-    orderedBy:"",
-    orderRef:"",
     text:`${qty} x ${description}${supplier? " ("+supplier+")":""}`,
     status:"Requested",
     requestedAt:now().toISOString(),
@@ -325,12 +319,10 @@ function submitPartsRequest(){
     fittedAt:null
   });
   j.status="🟠 Awaiting Parts";
-  addTimeline(j,"📦 Part requested",`${qty} x ${description}. Priority: ${priority}${supplier? ". Supplier/note: "+supplier:""}${eta? ". ETA required: "+eta:""}`);
+  addTimeline(j,"📦 Part requested",`${qty} x ${description}. Priority: ${priority}${supplier? ". Supplier/note: "+supplier:""}`);
   $("partDescription").value="";
   $("partQty").value=1;
   $("partSupplier").value="";
-  if($("partEta")) $("partEta").value="";
-  if($("partCost")) $("partCost").value="";
   save();renderTechnicianPartsStatus(j);render();alert("Part request sent to Service Manager.");
 }
 if($("submitPartsRequest")) $("submitPartsRequest").addEventListener("click",submitPartsRequest);
@@ -342,7 +334,7 @@ function renderTechnicianPartsStatus(job){
   el.innerHTML=list.length?list.map(p=>`
     <div class="job-card parts-request-card">
       <h3>${p.qty||1} x ${p.description||p.text}</h3>
-      <p><strong>Priority:</strong> ${p.priority||"Today"} ${p.supplier? " | <strong>Supplier:</strong> "+p.supplier:""} ${p.eta? " | <strong>ETA:</strong> "+p.eta:""}</p>
+      <p><strong>Priority:</strong> ${p.priority||"Today"} ${p.supplier? " | <strong>Supplier:</strong> "+p.supplier:""}</p>
       <p>Requested: ${fmt(p.requestedAt)}</p>
       <span class="part-pill ${(p.status||"requested").toLowerCase().replaceAll(" ","-")}">${p.status}</span>
     </div>`).join(""):"No parts requested for this job.";
@@ -363,48 +355,22 @@ function partsCard(job,part){
   return `<div class="job-card parts-request-card">
     <h3>${job.reg} — ${job.technician}</h3>
     <p><strong>Part:</strong> ${part.qty||1} x ${part.description||part.text}</p>
+    <p><strong>Priority:</strong> ${part.priority||"Today"} ${part.supplier? " | <strong>Supplier:</strong> "+part.supplier:""}</p>
     <p><strong>Status:</strong> <span class="part-pill ${(part.status||"requested").toLowerCase().replaceAll(" ","-")}">${part.status}</span></p>
-    <div class="parts-meta-grid">
-      <span><strong>Priority</strong>${part.priority||"Today"}</span>
-      <span><strong>Supplier</strong>${part.supplier||"Not set"}</span>
-      <span><strong>ETA</strong>${part.eta||"Not set"}</span>
-      <span><strong>Cost</strong><span class="parts-cost">£${Number(part.cost||0).toFixed(2)}</span></span>
-    </div>
     <p><strong>Requested:</strong> ${fmt(part.requestedAt)}</p>
-    ${part.orderRef?`<p><strong>Order Ref:</strong> ${part.orderRef}</p>`:""}
     <div class="parts-actions">
       <button onclick="markPartOrdered('${job.id}','${part.id}')">Mark Ordered</button>
       <button onclick="markPartDelivered('${job.id}','${part.id}')">Mark Delivered</button>
       <button onclick="markPartFitted('${job.id}','${part.id}')">Mark Fitted</button>
-      <button onclick="editPartDetails('${job.id}','${part.id}')">Edit Details</button>
       <button onclick="showTimelineModal('${job.id}')">Timeline</button>
     </div>
   </div>`;
 }
-function markPartOrderedfunction markPartOrdered
-function editPartDetails(jobId,partId){
+function markPartOrderedfunction markPartOrdered(jobId,partId){
   const j=jobs.find(x=>x.id===jobId); if(!j) return;
   const p=(j.partsRequests||[]).find(x=>x.id===partId); if(!p) return;
-  const supplier=prompt("Supplier / note:",p.supplier||"");
-  if(supplier!==null) p.supplier=supplier;
-  const eta=prompt("ETA:",p.eta||"");
-  if(eta!==null) p.eta=eta;
-  const cost=prompt("Estimated cost:",p.cost||"");
-  if(cost!==null) p.cost=Number(cost)||0;
-  const ref=prompt("Order reference:",p.orderRef||"");
-  if(ref!==null) p.orderRef=ref;
-  addTimeline(j,"📦 Parts details updated",`${p.description||p.text} details updated by Service Manager.`);
-  save();render();
-}
-function markPartOrdered(jobId,partId){
-  const j=jobs.find(x=>x.id===jobId); if(!j) return;
-  const p=(j.partsRequests||[]).find(x=>x.id===partId); if(!p) return;
-  const ref=prompt("Order reference (optional):",p.orderRef||"");
-  if(ref!==null) p.orderRef=ref;
-  const supplier=prompt("Supplier (optional):",p.supplier||"");
-  if(supplier!==null) p.supplier=supplier;
   p.status="Ordered"; p.orderedAt=now().toISOString();
-  addTimeline(j,"📦 Parts ordered",`${p.description||p.text} marked ordered by Service Manager${p.orderRef? ". Ref: "+p.orderRef:""}.`);
+  addTimeline(j,"📦 Parts ordered",`${p.description||p.text} marked ordered by Service Manager.`);
   save();render();
 }
 function markPartDelivered(jobId,partId){
