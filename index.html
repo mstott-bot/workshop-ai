@@ -3,70 +3,157 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Professional Car Agent Workshop AI</title>
+  <title>PCA Workshop AI v0.4</title>
   <link rel="stylesheet" href="style.css" />
 </head>
 <body>
-  <main class="app">
-    <header>
-      <div class="badge">Workshop AI v0.1</div>
-      <h1>Professional Car Agent<br />Workshop AI</h1>
-      <p>Technician voice note to workshop report.</p>
-    </header>
+  <header class="app-header">
+    <div>
+      <h1>PCA Workshop AI</h1>
+      <p>Workshop Control Centre v0.4</p>
+    </div>
+  </header>
 
-    <section class="card">
-      <label>Registration</label>
-      <input id="registration" placeholder="Example: AB19 XYZ" />
+  <main class="container">
+    <nav class="tabs">
+      <button class="tab-button active" data-tab="manager">Service Manager</button>
+      <button class="tab-button" data-tab="technician">Technician</button>
+      <button class="tab-button" data-tab="dashboard">Dashboard</button>
+    </nav>
 
-      <label for="technician">Technician</label>
-<select id="technician">
-  <option value="">Select technician</option>
-  <option>Jake</option>
-  <option>Gordon</option>
-  <option>James</option>
-  <option>Jimmy</option>
-  <option>Ross</option>
-  <option>Other</option>
-</select>
+    <section id="manager" class="tab-panel active">
+      <div class="card">
+        <h2>New Job</h2>
 
-<input 
-  id="otherTechnician" 
-  type="text" 
-  placeholder="Enter technician name" 
-  style="display:none; margin-top:10px;"
->
-      <label>Job Type</label>
-      <select id="jobType">
-        <option>Retail</option>
-        <option>Warranty</option>
-        <option>Internal</option>
-      </select>
-      <label for="jobStatus">Job Status</label>
+        <div class="grid">
+          <label>Registration *<input id="jobReg" placeholder="AB19 XYZ" /></label>
+          <label>Customer Name<input id="customerName" placeholder="Customer name" /></label>
+          <label>Telephone<input id="customerPhone" placeholder="Telephone number" /></label>
+          <label>Vehicle Make<input id="vehicleMake" placeholder="Ford / Audi / VW" /></label>
+          <label>Vehicle Model<input id="vehicleModel" placeholder="Fiesta / A4 / Golf" /></label>
+          <label>Mileage<input id="mileage" type="number" placeholder="Mileage" /></label>
 
-<select id="jobStatus">
-    <option value="Waiting to Start">🔵 Waiting to Start</option>
-    <option value="Diagnosis">🟡 Diagnosis</option>
-    <option value="Awaiting Parts">🟠 Awaiting Parts</option>
-    <option value="Awaiting Customer Approval">🟣 Awaiting Customer Approval</option>
-    <option value="Repair Complete">🟢 Repair Complete</option>
-    <option value="Ready for Collection">✅ Ready for Collection</option>
-</select>      
+          <label>Job Type *
+            <select id="jobType">
+              <option>Retail</option>
+              <option>Warranty</option>
+              <option>Internal</option>
+            </select>
+          </label>
 
-      <label>Technician Voice Note / Typed Note</label>
-      <textarea id="voiceNote" rows="8" placeholder="Example: Retail job. 2019 Ford Fiesta. Customer complained of knocking from front suspension. Found offside anti-roll bar link worn. Replaced link. Road tested. Vehicle ready for collection."></textarea>
+          <label>Assigned Technician *
+            <select id="assignedTech">
+              <option>Jake</option>
+              <option>Gordon</option>
+              <option>James</option>
+              <option>Jimmy</option>
+              <option>Ross</option>
+              <option>Other</option>
+            </select>
+          </label>
 
-      <div class="buttons">
-        <button id="startVoice" class="secondary">🎤 Start Voice</button>
-        <button id="stopVoice" class="secondary">⏹ Stop</button>
-        <button id="generate">Generate Report</button>
+          <label id="otherTechWrap" class="hidden">Other Technician<input id="otherTechName" placeholder="Technician name" /></label>
+          <label>Labour Hours Allowed *<input id="labourHours" type="number" min="0" step="0.25" placeholder="2.5" /></label>
+
+          <label>Priority
+            <select id="priority">
+              <option>🟢 Routine</option>
+              <option>🟠 Today</option>
+              <option>🔴 Urgent</option>
+            </select>
+          </label>
+
+          <label>MOT Add-on
+            <select id="motOption">
+              <option>None</option>
+              <option>Full MOT</option>
+              <option>Retest</option>
+              <option>Pre-MOT Check</option>
+            </select>
+          </label>
+
+          <label id="authWrap">Customer Authorisation
+            <select id="authorisation">
+              <option>Awaiting Customer Approval</option>
+              <option>Approved</option>
+              <option>Declined</option>
+            </select>
+          </label>
+        </div>
+
+        <label>Work Required
+          <textarea id="workRequired" placeholder="Example: Customer reports vibration under braking. Diagnose and advise."></textarea>
+        </label>
+
+        <button id="addJob" class="primary">Assign Job</button>
       </div>
-      <p id="voiceStatus" class="hint">Voice works best in Chrome or Safari if supported.</p>
+
+      <div class="card">
+        <h2>Today's Jobs</h2>
+        <div id="managerJobs" class="job-list empty">No jobs loaded yet.</div>
+      </div>
     </section>
 
-    <section class="card output-card">
-      <h2>AI Report Output</h2>
-      <div id="output" class="output empty">Your generated report will appear here.</div>
-      <button id="copyAll" class="copy">Copy Full Report</button>
+    <section id="technician" class="tab-panel">
+      <div class="card">
+        <h2>Technician Jobs</h2>
+        <label>Select Technician
+          <select id="techFilter">
+            <option>Jake</option>
+            <option>Gordon</option>
+            <option>James</option>
+            <option>Jimmy</option>
+            <option>Ross</option>
+            <option>Other</option>
+            <option>All</option>
+          </select>
+        </label>
+        <div id="techJobs" class="job-list empty">No jobs assigned.</div>
+      </div>
+
+      <div id="jobWorkArea" class="card hidden">
+        <h2 id="activeJobTitle">Job</h2>
+        <p id="activeJobMeta" class="muted"></p>
+
+        <label>Job Status
+          <select id="activeStatus">
+            <option>🔵 Waiting to Start</option>
+            <option>🟡 Diagnosis</option>
+            <option>🟠 Awaiting Parts</option>
+            <option>🟣 Awaiting Customer Approval</option>
+            <option>🟢 Repair Complete</option>
+            <option>✅ Ready for Collection</option>
+          </select>
+        </label>
+
+        <label>Technician Voice Note / Findings
+          <textarea id="techNote" placeholder="Speak or type: complaint, findings, repair completed, parts used, advisories."></textarea>
+        </label>
+
+        <div class="button-row">
+          <button id="startVoice" class="secondary">🎤 Start Voice</button>
+          <button id="stopVoice" class="secondary">⏹ Stop</button>
+        </div>
+
+        <button id="saveJobUpdate" class="primary">Save Job Update</button>
+      </div>
+    </section>
+
+    <section id="dashboard" class="tab-panel">
+      <div class="card">
+        <h2>Workshop Dashboard</h2>
+        <div id="stats" class="stats-grid"></div>
+      </div>
+
+      <div class="card">
+        <h2>Technician Workload</h2>
+        <div id="workload" class="job-list empty">No workload yet.</div>
+      </div>
+
+      <div class="card">
+        <h2>Workshop Board</h2>
+        <div id="dashboardJobs" class="job-list empty">No jobs loaded yet.</div>
+      </div>
     </section>
   </main>
 
