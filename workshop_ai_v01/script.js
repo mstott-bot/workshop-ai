@@ -111,3 +111,13 @@ document.getElementById('startVoice').addEventListener('click', () => {
 document.getElementById('stopVoice').addEventListener('click', () => {
   if (recognition) recognition.stop();
 });
+registration.addEventListener('input', () => {
+  registration.value = registration.value.toUpperCase();
+});
+
+
+
+
+
+
+
