@@ -1,1 +1,220 @@
-<!DOCTYPE html><html lang="en"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1.0"><title>PCA Workshop AI v0.7</title><link rel="stylesheet" href="style.css"></head><body><header class="app-header"><h1>PCA Workshop AI</h1><p>Live Workshop Board + League Table v0.7</p><p id="todayDate" class="date-line"></p></header><main class="container"><nav class="tabs"><button class="tab active" data-screen="managerScreen">Service Manager</button><button class="tab" data-screen="techScreen">Technician</button><button class="tab" data-screen="dashboardScreen">Dashboard</button><button class="tab" data-screen="targetsScreen">Targets</button></nav><section id="managerScreen" class="screen active"><div class="card"><h2>Load New Job</h2><div class="grid"><label>Vehicle Registration / Reg Number *<input id="reg" placeholder="AB19 XYZ"></label><label>Booking Date<input id="bookingDate" type="date"></label><label>Customer Name<input id="customer" placeholder="Customer name"></label><label>Telephone<input id="phone" placeholder="Telephone"></label><label>Make<input id="make" placeholder="Ford / Audi / VW"></label><label>Model<input id="model" placeholder="Fiesta / A4 / Golf"></label><label>Mileage<input id="mileage" type="number" placeholder="Mileage"></label><label>Job Type<select id="jobType"><option>Retail</option><option>Warranty</option><option>Internal</option></select></label><label>Technician<select id="technician"><option>Jake</option><option>Gordon</option><option>James</option><option>Jimmy</option><option>Ross</option><option>Other</option></select></label><label>Labour Hours Allowed *<input id="hours" type="number" step="0.25" min="0" placeholder="2.5"></label><label>Priority<select id="priority"><option>🟢 Routine</option><option>🟠 Today</option><option>🔴 Urgent</option></select></label><label>MOT Add-on<select id="mot"><option>None</option><option>Full MOT</option><option>Retest</option><option>Pre-MOT Check</option></select></label><label id="authBox">Retail Authorisation<select id="auth"><option>Awaiting Customer Approval</option><option>Approved</option><option>Declined</option></select></label></div><label>Work Required<textarea id="workRequired" placeholder="Example: Customer reports vibration under braking. Diagnose and advise."></textarea></label><button id="assignJob" class="primary">Assign Job</button></div><div class="card"><h2>Service Manager Job Board</h2><div id="managerJobs" class="job-list"></div></div></section><section id="techScreen" class="screen"><div class="card"><h2>My Jobs</h2><label>Select Technician<select id="techFilter"><option>Jake</option><option>Gordon</option><option>James</option><option>Jimmy</option><option>Ross</option><option>Other</option><option>All</option></select></label><div id="techJobs" class="job-list"></div></div></section><section id="activeJobScreen" class="screen"><button id="backToJobs" class="secondary">← Back to Jobs</button><div class="card"><h2 id="activeTitle">Active Job</h2><p id="activeDetails" class="muted"></p><p class="hours-warning">Labour hours are set by the service manager only. Technician clocks start and finish time.</p><div class="timer-box"><p><strong>Started:</strong> <span id="startedAt">Not started</span></p><p><strong>Finished:</strong> <span id="finishedAt">Not finished</span></p><p><strong>Actual Time:</strong> <span id="actualHours">0.00</span> hrs</p></div><div class="button-row"><button id="startTimer" class="secondary">▶ Start Job Timer</button><button id="finishTimer" class="secondary">■ Finish Job Timer</button></div><label>Job Status<select id="status"><option>🔵 Waiting to Start</option><option>🟡 Diagnosis</option><option>🟠 Awaiting Parts</option><option>🟣 Awaiting Customer Approval</option><option>🟢 Repair Complete</option><option>✅ Ready for Collection</option></select></label></div><div class="card"><h2>Technician Report Sections</h2><div class="voice-section"><label>Customer Complaint<textarea id="complaint"></textarea></label><button class="voiceBtn secondary" data-target="complaint">🎤 Voice Complaint</button></div><div class="voice-section"><label>Findings<textarea id="findings"></textarea></label><button class="voiceBtn secondary" data-target="findings">🎤 Voice Findings</button></div><div class="voice-section"><label>Repair Carried Out<textarea id="repair"></textarea></label><button class="voiceBtn secondary" data-target="repair">🎤 Voice Repair</button></div><div class="voice-section"><label>Parts Used / Required<textarea id="parts"></textarea></label><button class="voiceBtn secondary" data-target="parts">🎤 Voice Parts</button></div><div class="voice-section"><label>Advisories<textarea id="advisories"></textarea></label><button class="voiceBtn secondary" data-target="advisories">🎤 Voice Advisories</button></div><label>Photos<input id="photos" type="file" accept="image/*" multiple></label><button id="saveActiveJob" class="primary">Save Job & Generate Report</button></div><div class="card"><h2>Generated Report</h2><pre id="generatedReport">No report generated yet.</pre><button id="copyReport" class="secondary">Copy Report</button></div></section><section id="dashboardScreen" class="screen"><div class="card command-centre"><h2>Live Workshop Command Centre</h2><div id="stats" class="stats"></div></div><div class="card"><h2>Workshop KPI Coach - Improve From Yesterday</h2><div id="coach" class="coach-list"></div></div><div class="card"><h2>Technician League Table</h2><div id="leagueTable" class="table-wrap"></div></div><div class="card"><h2>Workshop KPI Scorecard</h2><div id="kpiScorecard" class="job-list"></div></div><div class="card"><h2>Live Workshop Board</h2><div id="statusBoard" class="board-grid"></div></div><div class="card"><h2>Technician Workload</h2><div id="workload"></div></div></section><section id="targetsScreen" class="screen"><div class="card"><h2>Monthly Targets</h2><p class="muted">Set by management. These calculate from allocated hours and actual clocked time.</p><div class="grid"><label>Workshop Hours Available This Month<input id="targetAvailableHours" type="number" step="0.25"></label><label>Workshop Efficiency Target %<input id="targetEfficiency" type="number" step="1" placeholder="95"></label><label>Retail Hours Target<input id="targetRetailHours" type="number" step="0.25"></label><label>Internal Hours Target<input id="targetInternalHours" type="number" step="0.25"></label><label>Warranty Hours Target<input id="targetWarrantyHours" type="number" step="0.25"></label><label>Internal Cars Completed Target<input id="targetInternalCars" type="number" step="1"></label></div><button id="saveTargets" class="primary">Save Targets</button></div></section></main><script src="script.js"></script></body></html>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>PCA Workshop AI v0.8</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+<header class="app-header">
+  <h1>PCA Workshop AI</h1>
+  <p>Release 0.8 — Command Centre + Job Timeline</p>
+  <p id="todayDate" class="date-line"></p>
+</header>
+
+<main class="container">
+  <nav class="tabs">
+    <button class="tab active" data-screen="commandScreen">Command Centre</button>
+    <button class="tab" data-screen="managerScreen">Service Manager</button>
+    <button class="tab" data-screen="techScreen">Technician</button>
+    <button class="tab" data-screen="dashboardScreen">Reports</button>
+    <button class="tab" data-screen="targetsScreen">Targets</button>
+  </nav>
+
+  <section id="commandScreen" class="screen active">
+    <div class="card command-centre">
+      <h2>PCA Command Centre</h2>
+      <div id="healthScore" class="health-score"></div>
+      <div id="ownerStats" class="stats"></div>
+    </div>
+
+    <div class="card">
+      <h2>AI Workshop Coach</h2>
+      <div id="ownerCoach" class="coach-list"></div>
+    </div>
+
+    <div class="card">
+      <h2>Technician League Table</h2>
+      <div id="leagueTableOwner" class="table-wrap"></div>
+    </div>
+
+    <div class="card">
+      <h2>Live Workshop Board</h2>
+      <div id="ownerStatusBoard" class="board-grid"></div>
+    </div>
+  </section>
+
+  <section id="managerScreen" class="screen">
+    <div class="card">
+      <h2>Load New Job</h2>
+      <div class="grid">
+        <label>Vehicle Registration / Reg Number *<input id="reg" placeholder="AB19 XYZ"></label>
+        <label>Booking Date<input id="bookingDate" type="date"></label>
+        <label>Customer Name<input id="customer" placeholder="Customer name"></label>
+        <label>Telephone<input id="phone" placeholder="Telephone"></label>
+        <label>Make<input id="make" placeholder="Ford / Audi / VW"></label>
+        <label>Model<input id="model" placeholder="Fiesta / A4 / Golf"></label>
+        <label>Mileage<input id="mileage" type="number" placeholder="Mileage"></label>
+
+        <label>Job Type
+          <select id="jobType">
+            <option>Retail</option>
+            <option>Warranty</option>
+            <option>Internal</option>
+          </select>
+        </label>
+
+        <label>Technician
+          <select id="technician">
+            <option>Jake</option><option>Gordon</option><option>James</option><option>Jimmy</option><option>Ross</option><option>Other</option>
+          </select>
+        </label>
+
+        <label>Labour Hours Allowed *<input id="hours" type="number" step="0.25" min="0" placeholder="2.5"></label>
+
+        <label>Priority
+          <select id="priority">
+            <option>🟢 Routine</option><option>🟠 Today</option><option>🔴 Urgent</option>
+          </select>
+        </label>
+
+        <label>MOT Add-on
+          <select id="mot">
+            <option>None</option><option>Full MOT</option><option>Retest</option><option>Pre-MOT Check</option>
+          </select>
+        </label>
+
+        <label id="authBox">Retail Authorisation
+          <select id="auth">
+            <option>Awaiting Customer Approval</option><option>Approved</option><option>Declined</option>
+          </select>
+        </label>
+      </div>
+
+      <label>Work Required
+        <textarea id="workRequired" placeholder="Example: Customer reports vibration under braking. Diagnose and advise."></textarea>
+      </label>
+
+      <button id="assignJob" class="primary">Assign Job</button>
+    </div>
+
+    <div class="card">
+      <h2>Service Manager Job Board</h2>
+      <div id="managerJobs" class="job-list"></div>
+    </div>
+  </section>
+
+  <section id="techScreen" class="screen">
+    <div class="card">
+      <h2>My Jobs</h2>
+      <label>Select Technician
+        <select id="techFilter">
+          <option>Jake</option><option>Gordon</option><option>James</option><option>Jimmy</option><option>Ross</option><option>Other</option><option>All</option>
+        </select>
+      </label>
+      <div id="techJobs" class="job-list"></div>
+    </div>
+  </section>
+
+  <section id="activeJobScreen" class="screen">
+    <button id="backToJobs" class="secondary">← Back to Jobs</button>
+
+    <div class="card">
+      <h2 id="activeTitle">Active Job</h2>
+      <p id="activeDetails" class="muted"></p>
+      <p class="hours-warning">Labour hours are set by the service manager only. Technician clocks start and finish time.</p>
+
+      <div class="timer-box">
+        <p><strong>Started:</strong> <span id="startedAt">Not started</span></p>
+        <p><strong>Finished:</strong> <span id="finishedAt">Not finished</span></p>
+        <p><strong>Actual Time:</strong> <span id="actualHours">0.00</span> hrs</p>
+      </div>
+
+      <div class="button-row">
+        <button id="startTimer" class="secondary">▶ Start Job Timer</button>
+        <button id="finishTimer" class="secondary">■ Finish Job Timer</button>
+      </div>
+
+      <label>Job Status
+        <select id="status">
+          <option>🔵 Waiting to Start</option><option>🟡 Diagnosis</option><option>🟠 Awaiting Parts</option>
+          <option>🟣 Awaiting Customer Approval</option><option>🟢 Repair Complete</option><option>✅ Ready for Collection</option>
+        </select>
+      </label>
+    </div>
+
+    <div class="card">
+      <h2>Technician Report Sections</h2>
+      <div class="voice-section"><label>Customer Complaint<textarea id="complaint"></textarea></label><button class="voiceBtn secondary" data-target="complaint">🎤 Voice Complaint</button></div>
+      <div class="voice-section"><label>Findings<textarea id="findings"></textarea></label><button class="voiceBtn secondary" data-target="findings">🎤 Voice Findings</button></div>
+      <div class="voice-section"><label>Repair Carried Out<textarea id="repair"></textarea></label><button class="voiceBtn secondary" data-target="repair">🎤 Voice Repair</button></div>
+      <div class="voice-section"><label>Parts Used / Required<textarea id="parts"></textarea></label><button class="voiceBtn secondary" data-target="parts">🎤 Voice Parts</button></div>
+      <div class="voice-section"><label>Advisories<textarea id="advisories"></textarea></label><button class="voiceBtn secondary" data-target="advisories">🎤 Voice Advisories</button></div>
+
+      <label>Photos<input id="photos" type="file" accept="image/*" multiple></label>
+      <button id="saveActiveJob" class="primary">Save Job & Generate Report</button>
+    </div>
+
+    <div class="card">
+      <h2>Job Comments / Updates</h2>
+      <label>Add Comment
+        <textarea id="jobComment" placeholder="Example: Customer has approved additional brake work."></textarea>
+      </label>
+      <button id="addComment" class="primary">Add Comment to Timeline</button>
+    </div>
+
+    <div class="card">
+      <h2>Job Timeline</h2>
+      <div id="jobTimeline" class="timeline"></div>
+    </div>
+
+    <div class="card">
+      <h2>Generated Report</h2>
+      <pre id="generatedReport">No report generated yet.</pre>
+      <button id="copyReport" class="secondary">Copy Report</button>
+    </div>
+  </section>
+
+  <section id="dashboardScreen" class="screen">
+    <div class="card">
+      <h2>Workshop KPI Scorecard</h2>
+      <div id="kpiScorecard" class="job-list"></div>
+    </div>
+
+    <div class="card">
+      <h2>Technician League Table</h2>
+      <div id="leagueTable" class="table-wrap"></div>
+    </div>
+
+    <div class="card">
+      <h2>Live Workshop Board</h2>
+      <div id="statusBoard" class="board-grid"></div>
+    </div>
+
+    <div class="card">
+      <h2>Technician Workload</h2>
+      <div id="workload"></div>
+    </div>
+  </section>
+
+  <section id="targetsScreen" class="screen">
+    <div class="card">
+      <h2>Monthly Targets</h2>
+      <p class="muted">Set by management. These calculate from allocated hours and actual clocked time.</p>
+      <div class="grid">
+        <label>Workshop Hours Available This Month<input id="targetAvailableHours" type="number" step="0.25"></label>
+        <label>Workshop Efficiency Target %<input id="targetEfficiency" type="number" step="1" placeholder="95"></label>
+        <label>Retail Hours Target<input id="targetRetailHours" type="number" step="0.25"></label>
+        <label>Internal Hours Target<input id="targetInternalHours" type="number" step="0.25"></label>
+        <label>Warranty Hours Target<input id="targetWarrantyHours" type="number" step="0.25"></label>
+        <label>Internal Cars Completed Target<input id="targetInternalCars" type="number" step="1"></label>
+      </div>
+      <button id="saveTargets" class="primary">Save Targets</button>
+    </div>
+  </section>
+</main>
+
+<script src="script.js"></script>
+</body>
+</html>
