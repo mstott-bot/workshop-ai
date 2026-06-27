@@ -32,6 +32,7 @@ if (!reg) {
 } 
   const tech = technician.value.trim() || 'Technician not entered';
   const type = jobType.value;
+  const status = document.getElementById('jobStatus').value;
   const note = voiceNote.value.trim();
 
   if (!note) {
@@ -40,7 +41,7 @@ if (!reg) {
     return;
   }
 
-  const status = guessStatus(note);
+  const aiStatus = guessStatus(note);
   const parts = extractParts(note);
 
   const report = `PROFESSIONAL CAR AGENT - WORKSHOP AI REPORT
@@ -48,6 +49,7 @@ if (!reg) {
 Registration: ${reg}
 Technician: ${tech}
 Job Type: ${type}
+Job Status: ${status}
 
 1. JOB SUMMARY
 ${type} job completed/assessed for vehicle ${reg}. Please review the technician note below and confirm final costing in Dragon 2000.
