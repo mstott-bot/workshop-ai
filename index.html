@@ -3,13 +3,13 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>PCA Workshop AI v0.9</title>
+  <title>PCA Workshop AI v1.0</title>
   <link rel="stylesheet" href="style.css" />
 </head>
 <body>
 <header class="app-header">
   <h1>PCA Workshop AI</h1>
-  <p>Release 0.9 — Premium Timeline + Command Centre</p>
+  <p>Release 1.0 — Technician Clock Off + Downtime Reports</p>
   <p id="todayDate"></p>
 </header>
 
@@ -51,6 +51,11 @@
     <div class="card">
       <h2>Technician League Table</h2>
       <div id="leagueTableOwner" class="table-wrap"></div>
+    </div>
+
+    <div class="card">
+      <h2>Downtime Today / This Week</h2>
+      <div id="ownerDowntimeReports" class="job-list"></div>
     </div>
   </section>
 
@@ -145,6 +150,17 @@
         <button id="finishTimer" class="secondary">■ Finish Job Timer</button>
       </div>
 
+      <div class="clockoff-panel">
+        <h3>Technician Clock Off</h3>
+        <p id="clockOffStatus" class="muted">Currently clocked on to job.</p>
+        <div class="button-row">
+          <button id="clockLunch" class="secondary">🍽 Clock Off Lunch</button>
+          <button id="clockIdle" class="secondary">⏸ Clock Off Idle</button>
+          <button id="clockCollecting" class="secondary">🚗 Clock Off Collecting Car</button>
+        </div>
+        <button id="clockBackOn" class="primary">▶ Clock Back On To Job</button>
+      </div>
+
       <label>Job Status
         <select id="status">
           <option>🔵 Waiting to Start</option><option>🟡 Diagnosis</option><option>🟠 Awaiting Parts</option>
@@ -187,6 +203,7 @@
     <div class="card"><h2>Technician League Table</h2><div id="leagueTable" class="table-wrap"></div></div>
     <div class="card"><h2>Live Workshop Board</h2><div id="statusBoard" class="board-grid"></div></div>
     <div class="card"><h2>Technician Workload</h2><div id="workload"></div></div>
+    <div class="card"><h2>Downtime Reports</h2><div id="downtimeReports" class="job-list"></div></div>
   </section>
 
   <section id="targetsScreen" class="screen">
