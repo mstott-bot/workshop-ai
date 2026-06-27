@@ -29,7 +29,8 @@ if (!reg) {
   alert("Please enter the vehicle registration.");
   registration.focus();
   return;
-}  const tech = technician.value.trim() || 'Technician not entered';
+} 
+  const tech = technician.value.trim() || 'Technician not entered';
   const type = jobType.value;
   const note = voiceNote.value.trim();
 
