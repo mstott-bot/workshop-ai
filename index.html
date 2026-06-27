@@ -3,13 +3,14 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>PCA Workshop AI v0.5</title>
+  <title>PCA Workshop AI v0.6</title>
   <link rel="stylesheet" href="style.css" />
 </head>
 <body>
   <header class="app-header">
     <h1>PCA Workshop AI</h1>
-    <p>Technician Workflow v0.5</p>
+    <p>Manager Controls + KPI Foundation v0.6</p>
+    <p id="todayDate" class="date-line"></p>
   </header>
 
   <main class="container">
@@ -17,14 +18,15 @@
       <button class="tab active" data-screen="managerScreen">Service Manager</button>
       <button class="tab" data-screen="techScreen">Technician</button>
       <button class="tab" data-screen="dashboardScreen">Dashboard</button>
+      <button class="tab" data-screen="targetsScreen">Targets</button>
     </nav>
 
     <section id="managerScreen" class="screen active">
       <div class="card">
         <h2>Load New Job</h2>
-
         <div class="grid">
-          <label>Registration *<input id="reg" placeholder="AB19 XYZ"></label>
+          <label>Vehicle Registration / Reg Number *<input id="reg" placeholder="AB19 XYZ"></label>
+          <label>Booking Date<input id="bookingDate" type="date"></label>
           <label>Customer Name<input id="customer" placeholder="Customer name"></label>
           <label>Telephone<input id="phone" placeholder="Telephone"></label>
           <label>Make<input id="make" placeholder="Ford / Audi / VW"></label>
@@ -41,12 +43,7 @@
 
           <label>Technician
             <select id="technician">
-              <option>Jake</option>
-              <option>Gordon</option>
-              <option>James</option>
-              <option>Jimmy</option>
-              <option>Ross</option>
-              <option>Other</option>
+              <option>Jake</option><option>Gordon</option><option>James</option><option>Jimmy</option><option>Ross</option><option>Other</option>
             </select>
           </label>
 
@@ -54,26 +51,19 @@
 
           <label>Priority
             <select id="priority">
-              <option>🟢 Routine</option>
-              <option>🟠 Today</option>
-              <option>🔴 Urgent</option>
+              <option>🟢 Routine</option><option>🟠 Today</option><option>🔴 Urgent</option>
             </select>
           </label>
 
           <label>MOT Add-on
             <select id="mot">
-              <option>None</option>
-              <option>Full MOT</option>
-              <option>Retest</option>
-              <option>Pre-MOT Check</option>
+              <option>None</option><option>Full MOT</option><option>Retest</option><option>Pre-MOT Check</option>
             </select>
           </label>
 
           <label id="authBox">Retail Authorisation
             <select id="auth">
-              <option>Awaiting Customer Approval</option>
-              <option>Approved</option>
-              <option>Declined</option>
+              <option>Awaiting Customer Approval</option><option>Approved</option><option>Declined</option>
             </select>
           </label>
         </div>
@@ -86,7 +76,7 @@
       </div>
 
       <div class="card">
-        <h2>All Jobs</h2>
+        <h2>Service Manager Job Board</h2>
         <div id="managerJobs" class="job-list"></div>
       </div>
     </section>
@@ -96,13 +86,7 @@
         <h2>My Jobs</h2>
         <label>Select Technician
           <select id="techFilter">
-            <option>Jake</option>
-            <option>Gordon</option>
-            <option>James</option>
-            <option>Jimmy</option>
-            <option>Ross</option>
-            <option>Other</option>
-            <option>All</option>
+            <option>Jake</option><option>Gordon</option><option>James</option><option>Jimmy</option><option>Ross</option><option>Other</option><option>All</option>
           </select>
         </label>
         <div id="techJobs" class="job-list"></div>
@@ -115,16 +99,23 @@
       <div class="card">
         <h2 id="activeTitle">Active Job</h2>
         <p id="activeDetails" class="muted"></p>
-        <p class="hours-warning">Labour hours are set by the service manager only.</p>
+        <p class="hours-warning">Labour hours are set by the service manager only. Technician clocks start and finish time.</p>
+
+        <div class="timer-box">
+          <p><strong>Started:</strong> <span id="startedAt">Not started</span></p>
+          <p><strong>Finished:</strong> <span id="finishedAt">Not finished</span></p>
+          <p><strong>Actual Time:</strong> <span id="actualHours">0.00</span> hrs</p>
+        </div>
+
+        <div class="button-row">
+          <button id="startTimer" class="secondary">▶ Start Job Timer</button>
+          <button id="finishTimer" class="secondary">■ Finish Job Timer</button>
+        </div>
 
         <label>Job Status
           <select id="status">
-            <option>🔵 Waiting to Start</option>
-            <option>🟡 Diagnosis</option>
-            <option>🟠 Awaiting Parts</option>
-            <option>🟣 Awaiting Customer Approval</option>
-            <option>🟢 Repair Complete</option>
-            <option>✅ Ready for Collection</option>
+            <option>🔵 Waiting to Start</option><option>🟡 Diagnosis</option><option>🟠 Awaiting Parts</option>
+            <option>🟣 Awaiting Customer Approval</option><option>🟢 Repair Complete</option><option>✅ Ready for Collection</option>
           </select>
         </label>
       </div>
@@ -132,35 +123,13 @@
       <div class="card">
         <h2>Technician Report Sections</h2>
 
-        <div class="voice-section">
-          <label>Customer Complaint<textarea id="complaint" placeholder="Customer reports..."></textarea></label>
-          <button class="voiceBtn secondary" data-target="complaint">🎤 Voice Complaint</button>
-        </div>
+        <div class="voice-section"><label>Customer Complaint<textarea id="complaint" placeholder="Customer reports..."></textarea></label><button class="voiceBtn secondary" data-target="complaint">🎤 Voice Complaint</button></div>
+        <div class="voice-section"><label>Findings<textarea id="findings" placeholder="Found..."></textarea></label><button class="voiceBtn secondary" data-target="findings">🎤 Voice Findings</button></div>
+        <div class="voice-section"><label>Repair Carried Out<textarea id="repair" placeholder="Replaced / repaired..."></textarea></label><button class="voiceBtn secondary" data-target="repair">🎤 Voice Repair</button></div>
+        <div class="voice-section"><label>Parts Used / Required<textarea id="parts" placeholder="Parts used or required..."></textarea></label><button class="voiceBtn secondary" data-target="parts">🎤 Voice Parts</button></div>
+        <div class="voice-section"><label>Advisories<textarea id="advisories" placeholder="Advisories..."></textarea></label><button class="voiceBtn secondary" data-target="advisories">🎤 Voice Advisories</button></div>
 
-        <div class="voice-section">
-          <label>Findings<textarea id="findings" placeholder="Found..."></textarea></label>
-          <button class="voiceBtn secondary" data-target="findings">🎤 Voice Findings</button>
-        </div>
-
-        <div class="voice-section">
-          <label>Repair Carried Out<textarea id="repair" placeholder="Replaced / repaired..."></textarea></label>
-          <button class="voiceBtn secondary" data-target="repair">🎤 Voice Repair</button>
-        </div>
-
-        <div class="voice-section">
-          <label>Parts Used / Required<textarea id="parts" placeholder="Parts used or required..."></textarea></label>
-          <button class="voiceBtn secondary" data-target="parts">🎤 Voice Parts</button>
-        </div>
-
-        <div class="voice-section">
-          <label>Advisories<textarea id="advisories" placeholder="Advisories..."></textarea></label>
-          <button class="voiceBtn secondary" data-target="advisories">🎤 Voice Advisories</button>
-        </div>
-
-        <label>Photos
-          <input id="photos" type="file" accept="image/*" multiple>
-        </label>
-
+        <label>Photos<input id="photos" type="file" accept="image/*" multiple></label>
         <button id="saveActiveJob" class="primary">Save Job & Generate Report</button>
       </div>
 
@@ -173,18 +142,26 @@
 
     <section id="dashboardScreen" class="screen">
       <div class="card">
-        <h2>Workshop Dashboard</h2>
+        <h2>Workshop KPI Dashboard</h2>
         <div id="stats" class="stats"></div>
       </div>
+      <div class="card"><h2>Targets Progress</h2><div id="targetProgress" class="job-list"></div></div>
+      <div class="card"><h2>Technician Efficiency</h2><div id="workload"></div></div>
+      <div class="card"><h2>Workshop Board</h2><div id="dashboardJobs" class="job-list"></div></div>
+    </section>
 
+    <section id="targetsScreen" class="screen">
       <div class="card">
-        <h2>Technician Workload</h2>
-        <div id="workload"></div>
-      </div>
-
-      <div class="card">
-        <h2>Workshop Board</h2>
-        <div id="dashboardJobs" class="job-list"></div>
+        <h2>Monthly Targets</h2>
+        <p class="muted">Set by management. These calculate from allocated hours and actual clocked time.</p>
+        <div class="grid">
+          <label>Workshop Hours Available This Month<input id="targetAvailableHours" type="number" step="0.25"></label>
+          <label>Retail Hours Target<input id="targetRetailHours" type="number" step="0.25"></label>
+          <label>Internal Hours Target<input id="targetInternalHours" type="number" step="0.25"></label>
+          <label>Warranty Hours Target<input id="targetWarrantyHours" type="number" step="0.25"></label>
+          <label>Internal Cars Completed Target<input id="targetInternalCars" type="number" step="1"></label>
+        </div>
+        <button id="saveTargets" class="primary">Save Targets</button>
       </div>
     </section>
   </main>
