@@ -87,3 +87,9 @@
 .capacity-good{background:#d1e7dd;color:#0f5132}
 .capacity-warn{background:#fff3cd;color:#664d03}
 .capacity-bad{background:#f8d7da;color:#842029}
+
+.board-column.drag-over{outline:3px dashed #0b6efd;outline-offset:4px}
+.board-job{cursor:grab}
+.board-job:active{cursor:grabbing}
+.parts-status-pill{display:inline-block;border-radius:999px;padding:4px 10px;font-weight:bold;background:#e7edf4;margin-top:6px}
+.parts-request-card{border-left-color:#6f42c1}

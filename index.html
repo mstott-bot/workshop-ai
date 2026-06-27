@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Workshop AI v2.3</title>
+  <title>Workshop AI v2.4</title>
   <link rel="stylesheet" href="style.css" />
 </head>
 <body>
@@ -53,6 +53,12 @@
     <div class="card">
       <h2>AI Workshop Coach</h2>
       <div id="ownerCoach" class="coach-list"></div>
+    </div>
+
+    <div class="card">
+      <h2>End of Day Briefing</h2>
+      <pre id="endOfDayBriefing">No briefing yet.</pre>
+      <button id="copyBriefing" class="secondary">Copy Briefing</button>
     </div>
 
     <div class="card">
@@ -137,6 +143,12 @@
       <p class="muted">When a technician finishes and saves a job report, it automatically appears here for the Service Manager.</p>
       <div id="completedReportsInbox" class="job-list"></div>
     </div>
+
+    <div class="card">
+      <h2>Parts Requests</h2>
+      <p class="muted">Technician parts requests appear here. Mark them ordered or delivered so technicians can see the update.</p>
+      <div id="servicePartsQueue" class="job-list"></div>
+    </div>
   </section>
 
   <section id="techScreen" class="screen">
@@ -198,6 +210,16 @@
       <div class="voice-section"><label>Advisories<textarea id="advisories"></textarea></label><button class="voiceBtn secondary" data-target="advisories">🎤 Voice Advisories</button></div>
       <label>Photos<input id="photos" type="file" accept="image/*" multiple></label>
       <button id="saveActiveJob" class="primary">Save Job & Generate Report</button>
+    </div>
+
+    <div class="card">
+      <h2>Request Parts</h2>
+      <label>Parts Required
+        <textarea id="partsRequestText" placeholder="Example: Front brake discs, front brake pads, wear sensor."></textarea>
+      </label>
+      <button id="submitPartsRequest" class="primary">Send Parts Request to Service Manager</button>
+      <h3>Parts Status</h3>
+      <div id="technicianPartsStatus" class="job-list"></div>
     </div>
 
     <div class="card">
@@ -279,6 +301,11 @@
     <div class="card">
       <h2>Downtime Report</h2>
       <div id="reportsDowntime" class="job-list"></div>
+    </div>
+
+    <div class="card">
+      <h2>End of Day Briefing</h2>
+      <pre id="reportsEndOfDayBriefing">No briefing yet.</pre>
     </div>
 
     <div class="card">
