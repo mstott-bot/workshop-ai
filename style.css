@@ -117,3 +117,36 @@
 .parts-actions{display:flex;gap:8px;flex-wrap:wrap;margin-top:8px}
 .parts-actions button{width:auto}
 @media(max-width:700px){.part-grid{grid-template-columns:1fr}}
+
+/* v2.8 module navigation and enhanced parts */
+.tabs{
+  background:#111c29;
+  padding:8px;
+  border-radius:16px;
+}
+.tab{
+  min-height:48px;
+}
+.parts-meta-grid{
+  display:grid;
+  grid-template-columns:repeat(4,1fr);
+  gap:8px;
+  margin-top:8px;
+}
+.parts-meta-grid span{
+  background:#f0f4f8;
+  border-radius:10px;
+  padding:8px;
+  font-size:13px;
+}
+.parts-meta-grid strong{
+  display:block;
+  font-size:11px;
+  color:#5f6b76;
+  text-transform:uppercase;
+}
+.parts-cost{
+  font-weight:bold;
+}
+@media(max-width:900px){.parts-meta-grid{grid-template-columns:1fr 1fr}}
+@media(max-width:700px){.parts-meta-grid{grid-template-columns:1fr}}
