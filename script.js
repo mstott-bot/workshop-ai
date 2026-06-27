@@ -23,8 +23,13 @@ function extractParts(note) {
 }
 
 function buildReport() {
-  const reg = registration.value.trim() || 'Registration not entered';
-  const tech = technician.value.trim() || 'Technician not entered';
+  const reg = registration.value.trim().toUpperCase();
+
+if (!reg) {
+  alert("Please enter the vehicle registration.");
+  registration.focus();
+  return;
+}  const tech = technician.value.trim() || 'Technician not entered';
   const type = jobType.value;
   const note = voiceNote.value.trim();
 
