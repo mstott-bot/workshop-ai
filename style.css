@@ -24,7 +24,7 @@
 .app-header h1 strong{color:#2d8cff}
 .tagline{text-transform:uppercase;letter-spacing:2.5px;color:#d4dde8!important;font-size:14px;margin-top:2px!important}
 .role-pill{background:#ffffff18;border:1px solid #ffffff33;border-radius:999px;padding:10px 14px;font-weight:bold;color:#fff;white-space:nowrap}
-.tabs{grid-template-columns:repeat(9,1fr)}
+.tabs{grid-template-columns:repeat(8,1fr)}
 .tech-row{display:flex;align-items:center;justify-content:space-between;gap:10px}
 .tech-actions button{width:auto;margin-left:6px}
 @media(max-width:1200px){.tabs{grid-template-columns:repeat(4,1fr)}}
@@ -95,25 +95,3 @@
 .parts-request-card{border-left-color:#6f42c1}
 
 .future-day-card{border-left-color:#20c997}
-
-.part-grid{
-  display:grid;
-  grid-template-columns:2fr .7fr 1fr 1fr;
-  gap:8px;
-}
-.part-pill{
-  display:inline-block;
-  border-radius:999px;
-  padding:5px 10px;
-  font-weight:bold;
-  margin:4px 4px 4px 0;
-  background:#e7edf4;
-}
-.part-pill.requested{background:#fff3cd;color:#664d03}
-.part-pill.ordered{background:#cff4fc;color:#055160}
-.part-pill.delivered{background:#d1e7dd;color:#0f5132}
-.part-pill.fitted{background:#dbeafe;color:#1e40af}
-.parts-request-card{border-left-color:#6f42c1}
-.parts-actions{display:flex;gap:8px;flex-wrap:wrap;margin-top:8px}
-.parts-actions button{width:auto}
-@media(max-width:700px){.part-grid{grid-template-columns:1fr}}
