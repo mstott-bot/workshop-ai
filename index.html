@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Workshop AI v2.1</title>
+  <title>Workshop AI v2.2</title>
   <link rel="stylesheet" href="style.css" />
 </head>
 <body>
@@ -28,6 +28,7 @@
     <button class="tab" data-screen="managerScreen">Service Manager</button>
     <button class="tab" data-screen="techScreen">Technician</button>
     <button class="tab" data-screen="reportsScreen">Reports</button>
+    <button class="tab" data-screen="plannerScreen">Daily Planner</button>
     <button class="tab" data-screen="reportsInterfaceScreen">Reports Interface</button>
     <button class="tab" data-screen="techniciansScreen">Technicians</button>
     <button class="tab" data-screen="targetsScreen">Targets</button>
@@ -225,6 +226,43 @@
     <div class="card"><h2>Downtime Reports</h2><div id="downtimeReports" class="job-list"></div></div>
   </section>
 
+
+
+  <section id="plannerScreen" class="screen">
+    <div class="card">
+      <h2>Daily Workshop Planner</h2>
+      <p class="muted">Shows today's booked jobs, hours allocated, technician capacity and workload balance.</p>
+      <div class="grid">
+        <label>Planner Date
+          <input id="plannerDate" type="date">
+        </label>
+        <label>Technician Daily Capacity Hours
+          <input id="dailyTechCapacity" type="number" step="0.25" value="8">
+        </label>
+      </div>
+      <button id="savePlannerSettings" class="primary">Update Planner</button>
+    </div>
+
+    <div class="card">
+      <h2>Today's Workshop Summary</h2>
+      <div id="plannerSummary" class="stats"></div>
+    </div>
+
+    <div class="card">
+      <h2>Technician Capacity Planner</h2>
+      <div id="plannerTechnicians" class="job-list"></div>
+    </div>
+
+    <div class="card">
+      <h2>AI Planner Suggestions</h2>
+      <div id="plannerSuggestions" class="coach-list"></div>
+    </div>
+
+    <div class="card">
+      <h2>Jobs For Selected Day</h2>
+      <div id="plannerJobs" class="job-list"></div>
+    </div>
+  </section>
 
   <section id="reportsInterfaceScreen" class="screen">
     <div class="card">

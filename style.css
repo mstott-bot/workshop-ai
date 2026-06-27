@@ -24,10 +24,10 @@
 .app-header h1 strong{color:#2d8cff}
 .tagline{text-transform:uppercase;letter-spacing:2.5px;color:#d4dde8!important;font-size:14px;margin-top:2px!important}
 .role-pill{background:#ffffff18;border:1px solid #ffffff33;border-radius:999px;padding:10px 14px;font-weight:bold;color:#fff;white-space:nowrap}
-.tabs{grid-template-columns:repeat(7,1fr)}
+.tabs{grid-template-columns:repeat(8,1fr)}
 .tech-row{display:flex;align-items:center;justify-content:space-between;gap:10px}
 .tech-actions button{width:auto;margin-left:6px}
-@media(max-width:1100px){.tabs{grid-template-columns:repeat(3,1fr)}}
+@media(max-width:1200px){.tabs{grid-template-columns:repeat(4,1fr)}}
 @media(max-width:700px){.app-header{align-items:flex-start;flex-direction:column}.tabs{grid-template-columns:1fr}.logo-mark{width:56px;height:56px}.logo-mark .gear{font-size:36px}.logo-mark .wrench{font-size:20px}.app-header h1{font-size:25px}.tagline{font-size:11px;letter-spacing:1.6px}}
 
 .job-info-grid{
@@ -63,3 +63,27 @@
 }
 .special-instructions p{margin:6px 0 0}
 @media(max-width:700px){.job-info-grid{grid-template-columns:1fr}}
+
+.planner-bar{
+  height:12px;
+  background:#e7edf4;
+  border-radius:999px;
+  overflow:hidden;
+  margin-top:8px;
+}
+.planner-fill{
+  height:100%;
+  background:#198754;
+}
+.planner-fill.warn{background:#ffc107}
+.planner-fill.bad{background:#dc3545}
+.capacity-label{
+  display:inline-block;
+  border-radius:999px;
+  padding:4px 10px;
+  font-weight:bold;
+  margin-top:6px;
+}
+.capacity-good{background:#d1e7dd;color:#0f5132}
+.capacity-warn{background:#fff3cd;color:#664d03}
+.capacity-bad{background:#f8d7da;color:#842029}
