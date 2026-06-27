@@ -3,14 +3,14 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>PCA Workshop AI v0.8</title>
+  <title>PCA Workshop AI v0.9</title>
   <link rel="stylesheet" href="style.css" />
 </head>
 <body>
 <header class="app-header">
   <h1>PCA Workshop AI</h1>
-  <p>Release 0.8 — Command Centre + Job Timeline</p>
-  <p id="todayDate" class="date-line"></p>
+  <p>Release 0.9 — Premium Timeline + Command Centre</p>
+  <p id="todayDate"></p>
 </header>
 
 <main class="container">
@@ -18,15 +18,24 @@
     <button class="tab active" data-screen="commandScreen">Command Centre</button>
     <button class="tab" data-screen="managerScreen">Service Manager</button>
     <button class="tab" data-screen="techScreen">Technician</button>
-    <button class="tab" data-screen="dashboardScreen">Reports</button>
+    <button class="tab" data-screen="reportsScreen">Reports</button>
     <button class="tab" data-screen="targetsScreen">Targets</button>
   </nav>
 
   <section id="commandScreen" class="screen active">
-    <div class="card command-centre">
-      <h2>PCA Command Centre</h2>
+    <div class="hero">
+      <div>
+        <h2>PCA Command Centre</h2>
+        <p>Owner view: workshop health, live activity, KPIs and technician performance.</p>
+      </div>
       <div id="healthScore" class="health-score"></div>
-      <div id="ownerStats" class="stats"></div>
+    </div>
+
+    <div id="ownerStats" class="stats"></div>
+
+    <div class="card">
+      <h2>Today’s Live Activity</h2>
+      <div id="liveActivity" class="timeline"></div>
     </div>
 
     <div class="card">
@@ -35,13 +44,13 @@
     </div>
 
     <div class="card">
-      <h2>Technician League Table</h2>
-      <div id="leagueTableOwner" class="table-wrap"></div>
+      <h2>Live Workshop Board</h2>
+      <div id="ownerStatusBoard" class="board-grid"></div>
     </div>
 
     <div class="card">
-      <h2>Live Workshop Board</h2>
-      <div id="ownerStatusBoard" class="board-grid"></div>
+      <h2>Technician League Table</h2>
+      <div id="leagueTableOwner" class="table-wrap"></div>
     </div>
   </section>
 
@@ -151,16 +160,13 @@
       <div class="voice-section"><label>Repair Carried Out<textarea id="repair"></textarea></label><button class="voiceBtn secondary" data-target="repair">🎤 Voice Repair</button></div>
       <div class="voice-section"><label>Parts Used / Required<textarea id="parts"></textarea></label><button class="voiceBtn secondary" data-target="parts">🎤 Voice Parts</button></div>
       <div class="voice-section"><label>Advisories<textarea id="advisories"></textarea></label><button class="voiceBtn secondary" data-target="advisories">🎤 Voice Advisories</button></div>
-
       <label>Photos<input id="photos" type="file" accept="image/*" multiple></label>
       <button id="saveActiveJob" class="primary">Save Job & Generate Report</button>
     </div>
 
     <div class="card">
       <h2>Job Comments / Updates</h2>
-      <label>Add Comment
-        <textarea id="jobComment" placeholder="Example: Customer has approved additional brake work."></textarea>
-      </label>
+      <label>Add Comment<textarea id="jobComment" placeholder="Example: Customer approved additional work."></textarea></label>
       <button id="addComment" class="primary">Add Comment to Timeline</button>
     </div>
 
@@ -176,32 +182,16 @@
     </div>
   </section>
 
-  <section id="dashboardScreen" class="screen">
-    <div class="card">
-      <h2>Workshop KPI Scorecard</h2>
-      <div id="kpiScorecard" class="job-list"></div>
-    </div>
-
-    <div class="card">
-      <h2>Technician League Table</h2>
-      <div id="leagueTable" class="table-wrap"></div>
-    </div>
-
-    <div class="card">
-      <h2>Live Workshop Board</h2>
-      <div id="statusBoard" class="board-grid"></div>
-    </div>
-
-    <div class="card">
-      <h2>Technician Workload</h2>
-      <div id="workload"></div>
-    </div>
+  <section id="reportsScreen" class="screen">
+    <div class="card"><h2>Workshop KPI Scorecard</h2><div id="kpiScorecard" class="job-list"></div></div>
+    <div class="card"><h2>Technician League Table</h2><div id="leagueTable" class="table-wrap"></div></div>
+    <div class="card"><h2>Live Workshop Board</h2><div id="statusBoard" class="board-grid"></div></div>
+    <div class="card"><h2>Technician Workload</h2><div id="workload"></div></div>
   </section>
 
   <section id="targetsScreen" class="screen">
     <div class="card">
       <h2>Monthly Targets</h2>
-      <p class="muted">Set by management. These calculate from allocated hours and actual clocked time.</p>
       <div class="grid">
         <label>Workshop Hours Available This Month<input id="targetAvailableHours" type="number" step="0.25"></label>
         <label>Workshop Efficiency Target %<input id="targetEfficiency" type="number" step="1" placeholder="95"></label>
@@ -214,6 +204,14 @@
     </div>
   </section>
 </main>
+
+<div id="modal" class="modal hidden">
+  <div class="modal-card">
+    <button id="closeModal" class="modal-close">×</button>
+    <h2 id="modalTitle">Timeline</h2>
+    <div id="modalTimeline" class="timeline"></div>
+  </div>
+</div>
 
 <script src="script.js"></script>
 </body>
