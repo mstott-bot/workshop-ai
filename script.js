@@ -111,3 +111,14 @@ document.getElementById('startVoice').addEventListener('click', () => {
 document.getElementById('stopVoice').addEventListener('click', () => {
   if (recognition) recognition.stop();
 });
+const technicianSelect = document.getElementById("technician");
+const otherTechnician = document.getElementById("otherTechnician");
+
+technicianSelect.addEventListener("change", function () {
+    if (this.value === "Other") {
+        otherTechnician.style.display = "block";
+    } else {
+        otherTechnician.style.display = "none";
+        otherTechnician.value = "";
+    }
+});
