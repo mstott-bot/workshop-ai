@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Professional Car Agent Workshop AI</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <main class="app">
+    <header>
+      <div class="badge">Workshop AI v0.1</div>
+      <h1>Professional Car Agent<br />Workshop AI</h1>
+      <p>Technician voice note to workshop report.</p>
+    </header>
+
+    <section class="card">
+      <label>Registration</label>
+      <input id="registration" placeholder="Example: AB19 XYZ" />
+
+      <label>Technician</label>
+      <input id="technician" placeholder="Example: Jake" />
+
+      <label>Job Type</label>
+      <select id="jobType">
+        <option>Retail</option>
+        <option>Warranty</option>
+        <option>Internal</option>
+      </select>
+
+      <label>Technician Voice Note / Typed Note</label>
+      <textarea id="voiceNote" rows="8" placeholder="Example: Retail job. 2019 Ford Fiesta. Customer complained of knocking from front suspension. Found offside anti-roll bar link worn. Replaced link. Road tested. Vehicle ready for collection."></textarea>
+
+      <div class="buttons">
+        <button id="startVoice" class="secondary">🎤 Start Voice</button>
+        <button id="stopVoice" class="secondary">⏹ Stop</button>
+        <button id="generate">Generate Report</button>
+      </div>
+      <p id="voiceStatus" class="hint">Voice works best in Chrome or Safari if supported.</p>
+    </section>
+
+    <section class="card output-card">
+      <h2>AI Report Output</h2>
+      <div id="output" class="output empty">Your generated report will appear here.</div>
+      <button id="copyAll" class="copy">Copy Full Report</button>
+    </section>
+  </main>
+
+  <script src="script.js"></script>
+</body>
+</html>
