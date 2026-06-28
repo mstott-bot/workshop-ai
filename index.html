@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Workshop AI Live Ready v4.0</title>
+<title>Workshop AI Live Ready v4.1</title>
 <style>
 *{box-sizing:border-box}body{margin:0;font-family:Arial,Helvetica,sans-serif;background:#0f1720;color:#17202a}.app-header{background:linear-gradient(135deg,#07111d,#0b2340);color:#fff;padding:18px;display:flex;justify-content:space-between;align-items:center;gap:12px}.brand{display:flex;align-items:center;gap:12px}.logo{width:58px;height:58px;border-radius:16px;background:#0b6efd;display:grid;place-items:center;font-size:32px}.app-header h1{margin:0;font-size:30px}.tag{margin:2px 0 0;color:#d4dde8;text-transform:uppercase;letter-spacing:2px;font-size:13px}.version{color:#9fb3c8;font-size:12px}.container{max-width:1400px;margin:0 auto;padding:14px}.tabs{display:grid;grid-template-columns:repeat(9,1fr);gap:8px;background:#111c29;padding:8px;border-radius:16px;margin-bottom:14px}.tab{border:0;border-radius:12px;background:#233142;color:#dfe8f2;font-weight:bold;padding:12px;min-height:46px}.tab.active{background:#0b6efd;color:#fff}.screen{display:none}.screen.active{display:block}.card{background:#fff;border-radius:16px;padding:16px;margin-bottom:14px;box-shadow:0 8px 24px rgba(0,0,0,.22)}h2{margin-top:0}.grid{display:grid;grid-template-columns:repeat(2,1fr);gap:12px}label{display:block;font-weight:bold;margin-bottom:12px}input,select,textarea{width:100%;margin-top:6px;padding:12px;border:1px solid #c8d0d8;border-radius:10px;font-size:16px}textarea{min-height:86px}.primary,.secondary,button.small{border:0;border-radius:12px;font-weight:bold;padding:12px;margin:5px 5px 5px 0}.primary{background:#0b6efd;color:white;width:100%}.secondary{background:#e7edf4;color:#101820;width:100%}button.small{background:#101820;color:white}.job-list,.coach-list{display:grid;gap:10px}.job-card,.coach-card{border:1px solid #d8e0e8;border-left:6px solid #0b6efd;border-radius:14px;padding:12px;background:#fbfdff}.job-card h3,.coach-card h3{margin:0 0 6px}.job-card p{margin:4px 0}.stats{display:grid;grid-template-columns:repeat(5,1fr);gap:10px}.stat{background:#f0f4f8;border-radius:14px;padding:14px;text-align:center}.stat strong{display:block;font-size:24px}.muted{color:#5f6b76}.timer-box,.special{background:#fff3cd;border:1px solid #ffe69c;border-radius:12px;padding:10px;margin:10px 0}.button-row{display:flex;gap:8px;flex-wrap:wrap}.button-row button{flex:1}.timeline{border-left:4px solid #0b6efd;margin-left:12px;padding-left:18px}.timeline-item{position:relative;background:#fbfdff;border:1px solid #d8e0e8;border-radius:14px;padding:10px;margin-bottom:10px}.timeline-item:before{content:"";position:absolute;left:-29px;top:14px;width:16px;height:16px;background:#0b6efd;border-radius:50%}.board-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:12px}.board-column{background:#f8fafc;border-radius:12px;border:1px solid #d8e0e8;padding:10px}.board-job{background:white;border-radius:10px;padding:10px;margin-bottom:8px;border-left:5px solid #0b6efd}.parts{border-left-color:#6f42c1}.good{border-left-color:#198754}.warn{border-left-color:#ffc107}.bad{border-left-color:#dc3545}.table-wrap{overflow-x:auto}table{width:100%;border-collapse:collapse}th,td{border-bottom:1px solid #d8e0e8;padding:10px;text-align:left;white-space:nowrap}th{background:#101820;color:#fff}.pill{display:inline-block;border-radius:999px;padding:5px 10px;font-weight:bold;background:#e7edf4}.hidden{display:none}.modal{position:fixed;inset:0;background:rgba(0,0,0,.65);display:flex;align-items:center;justify-content:center;padding:16px;z-index:50}.modal.hidden{display:none}.modal-card{background:#fff;border-radius:18px;padding:18px;max-width:850px;width:100%;max-height:85vh;overflow:auto}.modal-close{float:right;border:0;background:#101820;color:#fff;border-radius:50%;width:36px;height:36px;font-size:22px}.availability-row{display:grid;grid-template-columns:2fr 1fr;gap:10px}.report-preview{white-space:pre-wrap;background:#f8fafc;border:1px solid #d8e0e8;border-radius:10px;padding:10px;max-height:260px;overflow:auto}@media(max-width:1100px){.tabs{grid-template-columns:repeat(3,1fr)}.stats,.board-grid{grid-template-columns:1fr 1fr}}@media(max-width:700px){.tabs,.grid,.stats,.board-grid,.availability-row{grid-template-columns:1fr}.app-header{align-items:flex-start;flex-direction:column}.button-row{display:block}}
 </style>
@@ -11,7 +11,7 @@
 <body>
 <header class="app-header">
   <div class="brand"><div class="logo">⚙️</div><div><h1>WORKSHOP <strong style="color:#2d8cff">AI</strong></h1><p class="tag">Revolutionising workshops</p><p id="todayDate" class="version"></p></div></div>
-  <div class="version">Live Ready v4.0</div>
+  <div class="version">Live Ready v4.1</div>
 </header>
 <main class="container">
 <nav class="tabs">
@@ -58,7 +58,7 @@
 </section>
 
 <section id="technician" class="screen">
- <div class="card"><h2>My Jobs</h2><label>Select Technician<select id="techFilter"></select></label><div id="techJobs" class="job-list"></div></div>
+ <div class="card"><h2>My Jobs</h2><p class="muted">Select a technician to view assigned jobs. Choose All to see every job.</p><label>Select Technician<select id="techFilter"></select></label><div id="techJobs" class="job-list"></div></div>
 </section>
 
 <section id="activeJob" class="screen">
@@ -165,13 +165,30 @@ $("todayDate").textContent=new Date().toLocaleDateString("en-GB",{weekday:"long"
 if($("kpiCurrentMonth"))$("kpiCurrentMonth").value=monthKey();if($("kpiCompareMonth"))$("kpiCompareMonth").value=prevMonth(monthKey());
 $("reg").addEventListener("input",e=>e.target.value=e.target.value.toUpperCase());
 
-function populateTechSelects(){["technician","techFilter"].forEach(id=>{let el=$(id);if(!el)return;let cur=el.value;el.innerHTML=getTechs().map(t=>`<option>${t}</option>`).join("")+(id==="techFilter"?"<option>All</option>":"");if([...el.options].some(o=>o.value===cur))el.value=cur;});}
+function populateTechSelects(){
+  ["technician","techFilter"].forEach(id=>{
+    let el=$(id); if(!el) return;
+    let cur=el.value;
+    el.innerHTML=getTechs().map(t=>`<option value="${t}">${t}</option>`).join("")+(id==="techFilter"?'<option value="All">All</option>':"");
+    const values=[...el.querySelectorAll("option")].map(o=>o.value);
+    if(cur && values.includes(cur)) el.value=cur;
+    else el.value = id==="techFilter" ? "All" : getTechs()[0];
+  });
+}
 function assignJob(){let reg=$("reg").value.trim().toUpperCase(), hrs=Number($("hours").value);if(!reg||!hrs){alert("Enter registration and labour hours.");return}let type=$("jobType").value;let job={id:String(Date.now()),jobNo:`WAI-${todayISO().replaceAll("-","")}-${String(jobs.length+1).padStart(3,"0")}`,createdAt:nowISO(),bookingDate:$("bookingDate").value||todayISO(),completedAt:null,reg,customer:$("customer").value,phone:$("phone").value,make:$("make").value,model:$("model").value,mileage:$("mileage").value,type,technician:$("technician").value,hours:hrs,priority:$("priority").value,mot:$("mot").value,auth:type==="Retail"?$("auth").value:"Not required",workRequired:$("workRequired").value,specialInstructions:$("specialInstructions").value,status:"🔵 Waiting to Start",startedAt:null,finishedAt:null,actualHours:0,complaint:"",findings:"",repair:"",partsText:"",advisories:"",report:"",reportReady:false,reportReviewed:false,timeline:[],interruptions:[],activeClockOff:null,partsRequests:[]};addTimeline(job,"🟢 Job created",`Job ${job.jobNo} created and assigned to ${job.technician}`);jobs.push(job);save();["reg","customer","phone","make","model","mileage","hours","workRequired","specialInstructions"].forEach(id=>$(id).value="");$("bookingDate").value=todayISO();render();alert("Job assigned")}
 $("assignJob").addEventListener("click",assignJob);
 
 function jobCard(j,manager=false){ensure(j);return `<div class="job-card"><h3>${j.jobNo||""} | ${j.reg} — ${j.technician}</h3><p><strong>${j.make||"Make"} ${j.model||""}</strong> | ${j.type} | ${j.status}</p><p><strong>Booking:</strong> ${jobDate(j)} | <strong>Hours:</strong> ${j.hours} allowed / ${(j.actualHours||0).toFixed(2)} actual</p><p><strong>Customer:</strong> ${j.customer||"Not entered"} ${j.phone?" | "+j.phone:""}</p>${j.specialInstructions?`<p><strong>Special:</strong> ${j.specialInstructions}</p>`:""}${manager?`<button class="small" data-amend="${j.id}">Amend Hours</button><button class="small" data-reassign="${j.id}">Reassign</button><button class="small" data-manager-comment="${j.id}">Manager Comment</button>`:""}<button class="small" data-open="${j.id}">Open Job</button><button class="small" data-timeline="${j.id}">Timeline</button></div>`}
 function renderManager(){ $("managerJobs").innerHTML=jobs.length?jobs.slice().sort((a,b)=>jobDate(a).localeCompare(jobDate(b))).map(j=>jobCard(j,true)).join(""):"No jobs loaded."; renderCompletedInbox(); renderFuture(); renderServiceReg(); $("managerMorning").textContent=morningBriefing(); $("managerEnd").textContent=endBriefing();}
-function renderTech(){let f=$("techFilter").value||getTechs()[0];let list=f==="All"?jobs:jobs.filter(j=>j.technician===f);$("techJobs").innerHTML=list.length?list.map(j=>jobCard(j,false)).join(""):"No jobs assigned."}
+function renderTech(){
+  const filter=$("techFilter");
+  if(filter && !filter.value) filter.value="All";
+  let f=filter ? filter.value : "All";
+  let list=f==="All"?jobs:jobs.filter(j=>j.technician===f);
+  $("techJobs").innerHTML=list.length
+    ? list.map(j=>jobCard(j,false)).join("")
+    : `<div class="job-card"><h3>No jobs showing</h3><p>No jobs are assigned to ${f||"this technician"}.</p><p>Try selecting <strong>All</strong>, or allocate a job to this technician in the Service Manager tab.</p></div>`;
+}
 function openJob(id){let j=jobs.find(x=>x.id===id);if(!j)return;ensure(j);activeJobId=id;$("activeTitle").textContent=`${j.jobNo} | ${j.reg} — ${j.technician}`;$("activeDetails").textContent=`${j.type} | ${j.make||""} ${j.model||""} | MOT: ${j.mot}`;$("activeInfo").innerHTML=`<div class="stat"><strong>${j.reg}</strong>Reg</div><div class="stat"><strong>${j.customer||"-"}</strong>Customer</div><div class="stat"><strong>${j.hours}</strong>Allowed Hrs</div><div class="stat"><strong>${(j.actualHours||0).toFixed(2)}</strong>Actual Hrs</div><div class="stat"><strong>${j.status}</strong>Status</div>`;if(j.specialInstructions){$("activeSpecial").classList.remove("hidden");$("activeSpecial").innerHTML=`<strong>Special Instructions:</strong><p>${j.specialInstructions}</p>`}else $("activeSpecial").classList.add("hidden");$("startedAt").textContent=fmt(j.startedAt);$("finishedAt").textContent=fmt(j.finishedAt);$("actualHours").textContent=(j.actualHours||0).toFixed(2);$("clockOffStatus").textContent=j.activeClockOff?`Clocked off for ${j.activeClockOff.reason} since ${timeOnly(j.activeClockOff.start)}`:"On job";$("status").value=j.status;["complaint","findings","repair","partsText","advisories"].forEach(id=>$(id).value=j[id]||"");$("generatedReport").textContent=j.report||"No report generated yet.";renderTimeline(j,"jobTimeline");renderTechParts(j);show("activeJob")}
 $("backToJobs").addEventListener("click",()=>show("technician"));
 $("startTimer").addEventListener("click",()=>{let j=jobs.find(x=>x.id===activeJobId);if(!j)return;if(j.startedAt){alert("Timer already started.");return}j.startedAt=nowISO();j.status="🟡 Diagnosis";addTimeline(j,"▶ Technician started work",`${j.technician} started job timer.`);save();openJob(j.id);render();});
@@ -183,7 +200,44 @@ function saveActive(){let j=jobs.find(x=>x.id===activeJobId);if(!j)return;let ol
 $("saveActiveJob").addEventListener("click",saveActive);
 $("copyReport").addEventListener("click",()=>navigator.clipboard.writeText($("generatedReport").textContent));
 $("addComment").addEventListener("click",()=>{let j=jobs.find(x=>x.id===activeJobId);if(!j)return;let t=$("jobComment").value.trim();if(!t)return;addTimeline(j,"💬 Comment added",t);$("jobComment").value="";save();openJob(j.id);render();});
-function makeReport(j){let eff=efficiency(j.hours,j.actualHours);return `WORKSHOP AI REPORT\n\nJob: ${j.jobNo}\nReg: ${j.reg}\nVehicle: ${j.make||""} ${j.model||""}\nCustomer: ${j.customer||""}\nTechnician: ${j.technician}\nBooking Date: ${jobDate(j)}\nJob Type: ${j.type}\nAllowed Hours: ${j.hours}\nActual Hours: ${(j.actualHours||0).toFixed(2)}\nEfficiency: ${pct(eff)}\n\nSPECIAL INSTRUCTIONS\n${j.specialInstructions||"None"}\n\nJOB DESCRIPTION\n${j.complaint||"Not entered"}\n\nFINDINGS\n${j.findings||"Not entered"}\n\nREPAIR\n${j.repair||"Not entered"}\n\nPARTS USED / REQUIRED\n${j.partsText||"Not entered"}\n\nADVISORIES\n${j.advisories||"None"}\n\nPARTS REQUESTS\n${(j.partsRequests||[]).map(p=>`${p.qty} x ${p.description} - ${p.status}`).join("\n")||"None"}\n\nTIMELINE\n${(j.timeline||[]).map(t=>`${timeOnly(t.time)} - ${t.title}: ${t.detail}`).join("\n")}`}
+function makeReport(j){let eff=efficiency(j.hours,j.actualHours);return `WORKSHOP AI REPORT
+
+Job: ${j.jobNo}
+Reg: ${j.reg}
+Vehicle: ${j.make||""} ${j.model||""}
+Customer: ${j.customer||""}
+Technician: ${j.technician}
+Booking Date: ${jobDate(j)}
+Job Type: ${j.type}
+Allowed Hours: ${j.hours}
+Actual Hours: ${(j.actualHours||0).toFixed(2)}
+Efficiency: ${pct(eff)}
+
+SPECIAL INSTRUCTIONS
+${j.specialInstructions||"None"}
+
+JOB DESCRIPTION
+${j.complaint||"Not entered"}
+
+FINDINGS
+${j.findings||"Not entered"}
+
+REPAIR
+${j.repair||"Not entered"}
+
+PARTS USED / REQUIRED
+${j.partsText||"Not entered"}
+
+ADVISORIES
+${j.advisories||"None"}
+
+PARTS REQUESTS
+${(j.partsRequests||[]).map(p=>`${p.qty} x ${p.description} - ${p.status}`).join("
+")||"None"}
+
+TIMELINE
+${(j.timeline||[]).map(t=>`${timeOnly(t.time)} - ${t.title}: ${t.detail}`).join("
+")}`}
 
 function renderTimeline(j,id){$(id).innerHTML=(j.timeline||[]).slice().reverse().map(t=>`<div class="timeline-item"><strong>${timeOnly(t.time)} — ${t.title}</strong><small>${fmt(t.time)}</small><p>${t.detail||""}</p></div>`).join("")||"No timeline yet."}
 function showTimeline(id){let j=jobs.find(x=>x.id===id);if(!j)return;$("modalTitle").textContent=`Timeline — ${j.reg}`;renderTimeline(j,"modalTimeline");$("modal").classList.remove("hidden")}
@@ -216,6 +270,7 @@ function renderLeague(id){let rank={};["day","week","month","ytd"].forEach(p=>ge
 function monthStats(key){let list=jobs.filter(j=>jobDate(j).slice(0,7)===key || String(j.completedAt||"").slice(0,7)===key), allowed=list.reduce((s,j)=>s+Number(j.hours||0),0), actual=list.reduce((s,j)=>s+Number(j.actualHours||0),0), days=[...new Set(list.map(jobDate))], avail=days.reduce((s,d)=>s+activeHours(d),0);return{list,allowed,actual,eff:efficiency(allowed,actual),util:avail?allowed/avail*100:null,down:downMonth(key)}}
 function renderKPICompare(){let cur=$("kpiCurrentMonth").value||monthKey(), cmp=$("kpiCompareMonth").value||prevMonth(cur), a=monthStats(cur), b=monthStats(cmp), sum=o=>Object.values(o).reduce((s,v)=>s+v,0);$("kpiCompareResults").innerHTML=`<div class="job-card"><h3>${cur}</h3><p>Jobs: ${a.list.length}</p><p>Efficiency: ${pct(a.eff)}</p><p>Utilisation: ${pct(a.util)}</p><p>Downtime: ${sum(a.down).toFixed(2)} hrs</p></div><div class="job-card"><h3>${cmp}</h3><p>Jobs: ${b.list.length}</p><p>Efficiency: ${pct(b.eff)}</p><p>Utilisation: ${pct(b.util)}</p><p>Downtime: ${sum(b.down).toFixed(2)} hrs</p></div><div class="job-card"><h3>${cur} Downtime Breakdown</h3>${Object.entries(a.down).map(([k,v])=>`<p>${k}: ${v.toFixed(2)} hrs</p>`).join("")}</div>`;let by={};a.list.forEach(j=>{let d=jobDate(j);by[d]=by[d]||[];by[d].push(j)});$("dailyKpiBreakdown").innerHTML=Object.keys(by).sort().map(d=>{let l=by[d], al=l.reduce((s,j)=>s+Number(j.hours||0),0), ac=l.reduce((s,j)=>s+Number(j.actualHours||0),0), util=activeHours(d)?al/activeHours(d)*100:null;return `<div class="job-card"><h3>${d}</h3><p>Jobs: ${l.length}</p><p>Efficiency: ${pct(efficiency(al,ac))}</p><p>Utilisation: ${pct(util)}</p></div>`}).join("")||"No jobs in selected month."}
 $("kpiCompareBtn").addEventListener("click",renderKPICompare);
+$("techFilter").addEventListener("change",renderTech);
 function renderHistory(target,reg,date){let list=jobs.slice();if(reg)list=list.filter(j=>String(j.reg||"").toUpperCase().includes(reg.toUpperCase()));else list=list.filter(j=>jobDate(j)===date);$(target).innerHTML=list.map(j=>jobCard(j,true)).join("")||"No matching jobs found."}
 $("historySearchBtn").addEventListener("click",()=>renderHistory("historyResults",$("regLookup").value,$("historyDate").value||todayISO()));
 $("serviceRegLookupBtn").addEventListener("click",()=>renderHistory("serviceRegLookupResults",$("serviceRegLookup").value,""));
@@ -225,8 +280,29 @@ function renderReports(){let totalAllowed=jobs.reduce((s,j)=>s+Number(j.hours||0
 function renderCompletedInbox(){let list=jobs.filter(j=>j.report);$("completedReportsInbox").innerHTML=list.map(j=>`<div class="job-card ${j.reportReviewed?"good":"warn"}"><h3>${j.reg} — ${j.technician}</h3><div class="report-preview">${j.report}</div><button class="small" data-copy-report="${j.id}">Copy Report</button><button class="small" data-reviewed="${j.id}">Mark Reviewed</button></div>`).join("")||"No completed write-ups yet."}
 function copyReport(id){let j=jobs.find(x=>x.id===id);if(j?.report)navigator.clipboard.writeText(j.report)}
 function renderBoard(id){$(id).innerHTML=statuses.map(st=>{let list=jobs.filter(j=>j.status===st);return `<div class="board-column"><h3>${st}</h3>${list.map(j=>`<div class="board-job"><strong>${j.reg}</strong><br>${j.technician} | ${j.hours} hrs<br><button class="small" data-open="${j.id}">Open</button><button class="small" data-timeline="${j.id}">Timeline</button></div>`).join("")||"<p class='muted'>No jobs</p>"}</div>`}).join("")}
-function morningBriefing(){let today=jobs.filter(j=>jobDate(j)===todayISO()), waitingParts=jobs.filter(j=>j.status.includes("Awaiting Parts")).length, waitingApproval=jobs.filter(j=>j.status.includes("Approval")).length;return `WORKSHOP AI MORNING BRIEFING\n\nToday’s jobs booked: ${today.length}\nTomorrow’s jobs booked: ${jobs.filter(j=>jobDate(j)===addDays(1)).length}\nWaiting for parts: ${waitingParts}\nWaiting for approval: ${waitingApproval}\n\nACTION REQUIRED TODAY\n• Check approvals\n• Check parts ETAs\n• Review technician capacity`;}
-function endBriefing(){let allowed=jobs.reduce((s,j)=>s+Number(j.hours||0),0), actual=jobs.reduce((s,j)=>s+Number(j.actualHours||0),0), today=downtimes(1);return `WORKSHOP AI END OF DAY BRIEFING\n\nJobs loaded: ${jobs.length}\nJobs completed / ready: ${jobs.filter(completed).length}\nWorkshop efficiency: ${pct(efficiency(allowed,actual))}\n\nDowntime today:\n${Object.entries(today).map(([k,v])=>`${k}: ${v.toFixed(2)} hrs`).join("\n")}\n\nAI recommendation:\nReview waiting parts, waiting authority and idle time.`}
+function morningBriefing(){let today=jobs.filter(j=>jobDate(j)===todayISO()), waitingParts=jobs.filter(j=>j.status.includes("Awaiting Parts")).length, waitingApproval=jobs.filter(j=>j.status.includes("Approval")).length;return `WORKSHOP AI MORNING BRIEFING
+
+Today’s jobs booked: ${today.length}
+Tomorrow’s jobs booked: ${jobs.filter(j=>jobDate(j)===addDays(1)).length}
+Waiting for parts: ${waitingParts}
+Waiting for approval: ${waitingApproval}
+
+ACTION REQUIRED TODAY
+• Check approvals
+• Check parts ETAs
+• Review technician capacity`;}
+function endBriefing(){let allowed=jobs.reduce((s,j)=>s+Number(j.hours||0),0), actual=jobs.reduce((s,j)=>s+Number(j.actualHours||0),0), today=downtimes(1);return `WORKSHOP AI END OF DAY BRIEFING
+
+Jobs loaded: ${jobs.length}
+Jobs completed / ready: ${jobs.filter(completed).length}
+Workshop efficiency: ${pct(efficiency(allowed,actual))}
+
+Downtime today:
+${Object.entries(today).map(([k,v])=>`${k}: ${v.toFixed(2)} hrs`).join("
+")}
+
+AI recommendation:
+Review waiting parts, waiting authority and idle time.`}
 $("copyEndBriefing").addEventListener("click",()=>navigator.clipboard.writeText(endBriefing()));
 function renderDashboard(){let allowed=jobs.reduce((s,j)=>s+Number(j.hours||0),0), actual=jobs.reduce((s,j)=>s+Number(j.actualHours||0),0);$("dashStats").innerHTML=`<div class="stat"><strong>${jobs.length}</strong>Jobs</div><div class="stat"><strong>${jobs.filter(completed).length}</strong>Complete</div><div class="stat"><strong>${allowed.toFixed(1)}</strong>Allowed</div><div class="stat"><strong>${actual.toFixed(1)}</strong>Actual</div><div class="stat"><strong>${pct(efficiency(allowed,actual))}</strong>Efficiency</div>`;$("morningBriefing").textContent=morningBriefing();$("endBriefing").textContent=endBriefing();renderBoard("dashboardBoard");renderLeague("dashboardLeague")}
 function renderSetup(){ $("techSetupList").innerHTML=getTechs().map(t=>`<div class="job-card"><h3>${t}</h3><button class="small" data-rename-tech="${t}">Rename</button><button class="small" data-remove-tech="${t}">Remove</button></div>`).join("");["targetAvailableHours","targetEfficiency","targetRetailHours","targetWarrantyHours","targetInternalHours","targetInternalCars"].forEach(id=>{let key=id.replace("target","");key=key.charAt(0).toLowerCase()+key.slice(1); if($(id))$(id).value=targets[key]||""})}
