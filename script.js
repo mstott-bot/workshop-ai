@@ -1,1 +1,1 @@
-// Master v3.1 fixed uses embedded scripts in index.html
+// Workshop AI Rescue v3.0: scripts are embedded in index.html
