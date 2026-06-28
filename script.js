@@ -1,1 +1,1 @@
-// Workshop AI Live Ready v4.2 uses embedded JS in index.html
+// Workshop AI Live Ready v4.3 uses embedded JS in index.html
